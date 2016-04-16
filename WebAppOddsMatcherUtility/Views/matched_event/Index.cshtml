@@ -1,0 +1,119 @@
+﻿
+@model PagedList.IPagedList<WebAppOddsMatcherUtility.Models.matched_event>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Matched";
+}
+
+<h2>Odds Matcher</h2>
+
+<p>
+    <a href="#" class="btn btn-success btn-lg" onclick="myFunction()">
+        <span class="glyphicon glyphicon-refresh"> </span>
+    </a>
+</p> 
+
+@using (Html.BeginForm("Index", "Odds", FormMethod.Get))
+{
+    @*<p>
+            Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            <input type="submit" value="Search" />
+        </p>*@
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Event Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            Sport
+        </th>
+        <th>
+            @Html.ActionLink("Details", "Index", new { sortOrder = ViewBag.DetailsSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("Bet", "Index", new { sortOrder = ViewBag.BetSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("Market", "Index", new { sortOrder = ViewBag.MarketSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("Rating", "Index", new { sortOrder = ViewBag.RatingSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            Info
+        </th>
+        <th>
+            @Html.ActionLink("Bookmaker", "Index", new { sortOrder = ViewBag.BookmakerSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("Back", "Index", new { sortOrder = ViewBag.BackSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("Exchange", "Index", new { sortOrder = ViewBag.ExchangeSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("Lay", "Index", new { sortOrder = ViewBag.LaySortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("Size", "Index", new { sortOrder = ViewBag.SizeSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.eventDate)
+            </td>
+            <td>
+                <img src=@Html.DisplayFor(modelItem => item.sport) alt="Football">
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.details)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.betName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.marketName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.rating)
+            </td>
+            <td>
+                <img src=@Html.DisplayFor(modelItem => item.info) alt="Infomation">
+            </td>
+            <td>
+                <img src=@Html.DisplayFor(modelItem => item.bookmaker) alt="Bookmaker">
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.back)
+            </td>
+            <td>
+                <img src=@Html.DisplayFor(modelItem => item.exchange) alt="Exchange">
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.size)
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+<script>
+function myFunction() {
+    location.reload();
+}
+</script>
