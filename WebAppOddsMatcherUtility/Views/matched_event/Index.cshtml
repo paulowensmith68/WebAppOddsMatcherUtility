@@ -107,25 +107,30 @@
                 <td style="text-align:center">
                     <img src=@Html.DisplayFor(modelItem => item.bookmaker) alt="Bookmaker">
                 </td>
-                <td style="text-align:center; background-color:#d7ecfa !important;
-                color:#404040;
-                border-radius: 5px;
-                padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px;
-                width: 50px;
-                display: inline-block">
-                    @Html.DisplayFor(modelItem => item.back)
+                <td style="background-color:#d7ecfa !important;
+                     color:#404040;
+                     background-image: none !important;
+                     text-decoration: none !important;
+                     border-radius: 5px;
+                     padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px;
+                     border-radius: 5px;
+                     width: 50px;
+                     display: inline-block;
+                     text-align: center;">@Html.DisplayFor(modelItem => item.back)
                 </td>
                 <td>
                     <img src=@Html.DisplayFor(modelItem => item.exchange) alt="Exchange">
                 </td>
                 <td style="background-color:#fddee5 !important;
-                    text-align:center;
-                    color:#404040;
-                    border-radius: 5px;
-                    padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px;
-                    width: 50px;
-                    display: inline-block">
-                    @Html.DisplayFor(modelItem => item.lay)
+                     color:#404040;
+                     background-image: none !important;
+                     text-decoration: none !important;
+                     border-radius: 5px;
+                     padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px;
+                     border-radius: 5px;
+                     width: 50px;
+                     display: inline-block;
+                     text-align: center;">@Html.DisplayFor(modelItem => item.lay)
                 </td>
                 <td style="text-align:center">
                     @Html.DisplayFor(modelItem => item.size)

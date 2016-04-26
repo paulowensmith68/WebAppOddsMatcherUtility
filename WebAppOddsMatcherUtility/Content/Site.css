@@ -32,3 +32,7 @@ input.button-add {
     padding-bottom: 40px;
     vertical-align: middle; /* align the text vertically centered */
 }
+
+.box {
+    vertical-align:middle !important;
+}​
