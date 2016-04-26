@@ -152,14 +152,15 @@
 else
 {
     if (string.IsNullOrEmpty(ViewBag.CurrentFilter) &&
-    string.IsNullOrEmpty(ViewBag.BookmakerParam) &&
-    string.IsNullOrEmpty(ViewBag.RatingParam ))
+    string.IsNullOrEmpty(ViewBag.BookmakerFilter) &&
+    string.IsNullOrEmpty(ViewBag.ViewBag.BackFilter) &&
+    string.IsNullOrEmpty(ViewBag.ViewBag.BackFilter))
     {
-        < p > There aren´t any product created.</ p >
+        <p> There are no events on the database.</p>
     }
     else
     {
-        < p > There aren´t any product for the selected search.</ p >
+        <p> There are no matches for the filter.</p>
     }
 }
 
