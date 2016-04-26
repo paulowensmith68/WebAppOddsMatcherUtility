@@ -27,11 +27,12 @@
                     <a href="#" class="btn btn-success btn-lg" onclick="myFunction()"><span class="glyphicon glyphicon-refresh"> </span></a>
                 </p>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-9">
                 <p>
-                    <b>
-                        Bookmaker: @Html.DropDownList("SearchByBookmaker", "All bookmakers")
-                    </b>
+                    <b>Bookmaker: @Html.DropDownList("SearchByBookmaker", "All bookmakers")</b>
+                    <b>   Back: @Html.DropDownList("SearchByBack", "All back bets")</b>
+                    <b>   Size: @Html.DropDownList("SearchBySize", "All sizes")</b>
+
                     <input class="btn btn-info" type="submit" value="Filter" />
                 </p>
             </div>
@@ -43,40 +44,40 @@
     <table class="table">
         <tr>
             <th style="color: #fff; background: #effea5;">
-                @Html.ActionLink("Event Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter })
+                @Html.ActionLink("Event Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
             </th>
             <th style="color: #000000; background: #effea5;">
                 Sport
             </th>
             <th style="color: #fff; background: #effea5;">
-                @Html.ActionLink("Details", "Index", new { sortOrder = ViewBag.DetailsSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter })
+                @Html.ActionLink("Details", "Index", new { sortOrder = ViewBag.DetailsSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
             </th>
             <th style="color: #fff; background: #effea5;">
-                @Html.ActionLink("Bet", "Index", new { sortOrder = ViewBag.BetSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter })
+                @Html.ActionLink("Bet", "Index", new { sortOrder = ViewBag.BetSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
             </th>
             <th style="color: #fff; background: #effea5;">
-                @Html.ActionLink("Market", "Index", new { sortOrder = ViewBag.MarketSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter })
+                @Html.ActionLink("Market", "Index", new { sortOrder = ViewBag.MarketSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
             </th>
             <th style="color: #fff; background: #effea5;">
-                @Html.ActionLink("Rating", "Index", new { sortOrder = ViewBag.RatingSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter })
+                @Html.ActionLink("Rating", "Index", new { sortOrder = ViewBag.RatingSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
             </th>
             <th style="color: #000000; background: #effea5;">
                 Info
             </th>
             <th style="color: #fff; background: #effea5; text-align:center">
-                @Html.ActionLink("Bookmaker", "Index", new { sortOrder = ViewBag.BookmakerSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter })
+                @Html.ActionLink("Bookmaker", "Index", new { sortOrder = ViewBag.BookmakerSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
             </th>
             <th style="color: #fff; background: #effea5;">
-                @Html.ActionLink("Back", "Index", new { sortOrder = ViewBag.BackSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter })
+                @Html.ActionLink("Back", "Index", new { sortOrder = ViewBag.BackSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
             </th>
             <th style="color: #fff; background: #effea5;">
-                @Html.ActionLink("Exchange", "Index", new { sortOrder = ViewBag.ExchangeSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter })
+                @Html.ActionLink("Exchange", "Index", new { sortOrder = ViewBag.ExchangeSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
             </th>
             <th style="color: #fff; background: #effea5;">
-                @Html.ActionLink("Lay", "Index", new { sortOrder = ViewBag.LaySortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter })
+                @Html.ActionLink("Lay", "Index", new { sortOrder = ViewBag.LaySortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
             </th>
             <th style="color: #fff; background: #effea5;">
-                @Html.ActionLink("Size", "Index", new { sortOrder = ViewBag.SizeSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter })
+                @Html.ActionLink("Size", "Index", new { sortOrder = ViewBag.SizeSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
             </th>
         </tr>
 
@@ -144,7 +145,7 @@
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
         @Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter}))
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter }))
     </div>
 }
 

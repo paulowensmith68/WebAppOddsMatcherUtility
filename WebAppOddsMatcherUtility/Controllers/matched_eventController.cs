@@ -17,7 +17,7 @@ namespace WebAppOddsMatcherUtility.Controllers
         private oddsmatchingEntities db = new oddsmatchingEntities();
 
         // GET: matched_event
-        public ActionResult Index(string sortOrder, string currentFilter, string searchByBookmaker, string searchByRating, int? page)
+        public ActionResult Index(string sortOrder, string currentFilter, string searchByBookmaker, string searchByBack, string searchBySize, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
@@ -32,7 +32,8 @@ namespace WebAppOddsMatcherUtility.Controllers
             ViewBag.SizeSortParm = sortOrder == "size" ? "size_desc" : "size";
 
             ViewBag.CurrentFilter = searchByBookmaker;
-            ViewBag.RatingFilter = searchByRating;
+            ViewBag.BackFilter = searchByBack;
+            ViewBag.SizeFilter = searchBySize;
 
             if (searchByBookmaker == null)
              {
@@ -55,11 +56,56 @@ namespace WebAppOddsMatcherUtility.Controllers
             {
                 matched = matched.Where(s => s.bookmaker_name.Contains(searchByBookmaker));
             }
-            if (!String.IsNullOrEmpty(searchByRating))
+            if (!String.IsNullOrEmpty(searchByBack))
             {
-                double rating = 0;
-                matched = matched.Where(s => s.rating > rating);
+                double backFilter = 0;
+                switch (searchByBack)
+                {
+                    case "4 or more":
+                        backFilter = 4;
+                        break;
+                    case "3 or more":
+                        backFilter = 3;
+                        break;
+                    case "2 or more":
+                        backFilter = 2;
+                        break;
+                    case "1 or more":
+                        backFilter = 1;
+                        break;
+                }
+                matched = matched.Where(s => s.back >= backFilter);
             }
+            if (!String.IsNullOrEmpty(searchBySize))
+            {
+                double sizeFilter = 0;
+                switch (searchBySize)
+                {
+                    case "£1000 or more":
+                        sizeFilter = 1000;
+                        break;
+                    case "£500 or more":
+                        sizeFilter = 500;
+                        break;
+                    case "£400 or more":
+                        sizeFilter = 400;
+                        break;
+                    case "£300 or more":
+                        sizeFilter = 300;
+                        break;
+                    case "£200 or more":
+                        sizeFilter = 200;
+                        break;
+                    case "£100 or more":
+                        sizeFilter = 100;
+                        break;
+                    case "£50 or more":
+                        sizeFilter = 50;
+                        break;
+                }
+                matched = matched.Where(s => s.size >= sizeFilter);
+            }
+
 
             //
             // Sort
@@ -250,6 +296,23 @@ namespace WebAppOddsMatcherUtility.Controllers
             bookmakers.AddRange(bookmakerQuery.Distinct());
             bookmakers.Sort();
             ViewBag.SearchByBookmaker = new SelectList(bookmakers);
-       }
+
+            var backs = new List<string>();
+            backs.Add("4 or more");
+            backs.Add("3 or more");
+            backs.Add("2 or more");
+            backs.Add("1 or more");
+            ViewBag.SearchByBack = new SelectList(backs);
+
+            var sizes = new List<string>();
+            sizes.Add("£1000 or more");
+            sizes.Add("£500 or more");
+            sizes.Add("£400 or more");
+            sizes.Add("£300 or more");
+            sizes.Add("£200 or more");
+            sizes.Add("£100 or more");
+            sizes.Add("£50 or more");
+            ViewBag.SearchBySize = new SelectList(sizes);
+        }
     }
 }
