@@ -35,5 +35,7 @@ namespace WebAppOddsMatcherUtility.Models
         public long n { get; set; }
         public System.DateTime ut { get; set; }
         public string del { get; set; }
+        public string bookmaker_name { get; set; }
+        public string bookmaker_affiliate_link { get; set; }
     }
 }

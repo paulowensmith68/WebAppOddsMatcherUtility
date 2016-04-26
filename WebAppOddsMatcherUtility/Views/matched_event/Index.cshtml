@@ -2,63 +2,81 @@
 @model PagedList.IPagedList<WebAppOddsMatcherUtility.Models.matched_event>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+    $(document).ready(function () {
+        //for table row
+        $("tr:even").css("background-color", "#A8A8A8");
+        $("tr:odd").css("background-color", "#FFFFFF");
+
+    });
+</script>
 
 @{
     ViewBag.Title = "Matched";
 }
 
-<h2>Odds Comparison Utility</h2>
+@*<h2>Odds Comparison Utility</h2>*@
 
-<p>
-    <a href="#" class="btn btn-success btn-lg" onclick="myFunction()">
-        <span class="glyphicon glyphicon-refresh"> </span>
-    </a>
-</p> 
 
-@using (Html.BeginForm("Index", "Odds", FormMethod.Get))
+@using (Html.BeginForm("Index", "matched_event", FormMethod.Get))
 {
-    @*<p>
-            Find by name: @Html.TextBox("Filter", ViewBag.CurrentFilter as string)
-            <input type="submit" value="Search" />
-        </p>*@
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <p>
+                    <a href="#" class="btn btn-success btn-lg" onclick="myFunction()"><span class="glyphicon glyphicon-refresh"> </span></a>
+                </p>
+            </div>
+            <div class="col-md-6">
+                <p>
+                    <b>
+                        Bookmaker: @Html.DropDownList("SearchByBookmaker", "All bookmakers")
+                    </b>
+                    <input class="btn btn-info" type="submit" value="Filter" />
+                </p>
+            </div>
+        </div>
+    </div>
 }
+@if (Model.Count > 0)
+{
     <table class="table">
         <tr>
-            <th>
-                @Html.ActionLink("Event Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+            <th style="color: #fff; background: #effea5;">
+                @Html.ActionLink("Event Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter })
             </th>
-            <th>
+            <th style="color: #000000; background: #effea5;">
                 Sport
             </th>
-            <th>
-                @Html.ActionLink("Details", "Index", new { sortOrder = ViewBag.DetailsSortParm, currentFilter = ViewBag.CurrentFilter })
+            <th style="color: #fff; background: #effea5;">
+                @Html.ActionLink("Details", "Index", new { sortOrder = ViewBag.DetailsSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter })
             </th>
-            <th>
-                @Html.ActionLink("Bet", "Index", new { sortOrder = ViewBag.BetSortParm, currentFilter = ViewBag.CurrentFilter })
+            <th style="color: #fff; background: #effea5;">
+                @Html.ActionLink("Bet", "Index", new { sortOrder = ViewBag.BetSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter })
             </th>
-            <th>
-                @Html.ActionLink("Market", "Index", new { sortOrder = ViewBag.MarketSortParm, currentFilter = ViewBag.CurrentFilter })
+            <th style="color: #fff; background: #effea5;">
+                @Html.ActionLink("Market", "Index", new { sortOrder = ViewBag.MarketSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter })
             </th>
-            <th>
-                @Html.ActionLink("Rating", "Index", new { sortOrder = ViewBag.RatingSortParm, currentFilter = ViewBag.CurrentFilter })
+            <th style="color: #fff; background: #effea5;">
+                @Html.ActionLink("Rating", "Index", new { sortOrder = ViewBag.RatingSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter })
             </th>
-            <th>
+            <th style="color: #000000; background: #effea5;">
                 Info
             </th>
-            <th>
-                @Html.ActionLink("Bookmaker", "Index", new { sortOrder = ViewBag.BookmakerSortParm, currentFilter = ViewBag.CurrentFilter })
+            <th style="color: #fff; background: #effea5; text-align:center">
+                @Html.ActionLink("Bookmaker", "Index", new { sortOrder = ViewBag.BookmakerSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter })
             </th>
-            <th>
-                @Html.ActionLink("Back", "Index", new { sortOrder = ViewBag.BackSortParm, currentFilter = ViewBag.CurrentFilter })
+            <th style="color: #fff; background: #effea5;">
+                @Html.ActionLink("Back", "Index", new { sortOrder = ViewBag.BackSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter })
             </th>
-            <th>
-                @Html.ActionLink("Exchange", "Index", new { sortOrder = ViewBag.ExchangeSortParm, currentFilter = ViewBag.CurrentFilter })
+            <th style="color: #fff; background: #effea5;">
+                @Html.ActionLink("Exchange", "Index", new { sortOrder = ViewBag.ExchangeSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter })
             </th>
-            <th>
-                @Html.ActionLink("Lay", "Index", new { sortOrder = ViewBag.LaySortParm, currentFilter = ViewBag.CurrentFilter })
+            <th style="color: #fff; background: #effea5;">
+                @Html.ActionLink("Lay", "Index", new { sortOrder = ViewBag.LaySortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter })
             </th>
-            <th>
-                @Html.ActionLink("Size", "Index", new { sortOrder = ViewBag.SizeSortParm, currentFilter = ViewBag.CurrentFilter })
+            <th style="color: #fff; background: #effea5;">
+                @Html.ActionLink("Size", "Index", new { sortOrder = ViewBag.SizeSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter })
             </th>
         </tr>
 
@@ -67,7 +85,6 @@
             <tr>
                 <td>
                     @Html.ValueFor(modelItem => item.eventDate, "{0:dd/MM/yyyy HH:mm}")
-                    @*@Html.DisplayFor(modelItem => item.eventDate, "{0:yyyy-dd-mm}")*@
                 </td>
                 <td>
                     <img src=@Html.DisplayFor(modelItem => item.sport) alt="Football">
@@ -102,11 +119,12 @@
                     <img src=@Html.DisplayFor(modelItem => item.exchange) alt="Exchange">
                 </td>
                 <td style="background-color:#fddee5 !important;
-                color:#404040;
-                border-radius: 5px;
-                padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px;
-                width: 50px;
-                display: inline-block">
+                    text-align:center;
+                    color:#404040;
+                    border-radius: 5px;
+                    padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px;
+                    width: 50px;
+                    display: inline-block">
                     @Html.DisplayFor(modelItem => item.lay)
                 </td>
                 <td style="text-align:center">
@@ -117,13 +135,30 @@
 
     </table>
     <br />
-    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    <div id='Paging' style="text-align: center">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-    @Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter}))
+    </div>
+}
 
-    <script>
-        function myFunction() {
-            location.reload();
-        }
-    </script>
+else
+{
+    if (string.IsNullOrEmpty(ViewBag.CurrentFilter) &&
+    string.IsNullOrEmpty(ViewBag.BookmakerParam) &&
+    string.IsNullOrEmpty(ViewBag.RatingParam ))
+    {
+        < p > There aren´t any product created.</ p >
+    }
+    else
+    {
+        < p > There aren´t any product for the selected search.</ p >
+    }
+}
+
+<script>
+    function myFunction() {
+        location.reload();
+    }
+</script>

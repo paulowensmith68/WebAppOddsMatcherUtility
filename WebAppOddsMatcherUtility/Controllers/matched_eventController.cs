@@ -17,7 +17,7 @@ namespace WebAppOddsMatcherUtility.Controllers
         private oddsmatchingEntities db = new oddsmatchingEntities();
 
         // GET: matched_event
-        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public ActionResult Index(string sortOrder, string currentFilter, string searchByBookmaker, string searchByRating, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
@@ -31,20 +31,39 @@ namespace WebAppOddsMatcherUtility.Controllers
             ViewBag.LaySortParm = sortOrder == "lay" ? "lay_desc" : "lay";
             ViewBag.SizeSortParm = sortOrder == "size" ? "size_desc" : "size";
 
-            if (searchString != null)
-            {
-                page = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
+            ViewBag.CurrentFilter = searchByBookmaker;
+            ViewBag.RatingFilter = searchByRating;
+
+            if (searchByBookmaker == null)
+             {
+                searchByBookmaker = currentFilter;
             }
 
-            ViewBag.CurrentFilter = searchString;
+            // Populate filter lists
+            SetCollectionForFilter();
+
+            ViewBag.CurrentFilter = searchByBookmaker;
+            ViewBag.BookmakerFilter = searchByBookmaker;
 
             var matched = from s in db.matched_event
                           select s;
 
+            //
+            // Filter
+            //
+            if (!String.IsNullOrEmpty(searchByBookmaker))
+            {
+                matched = matched.Where(s => s.bookmaker_name.Contains(searchByBookmaker));
+            }
+            if (!String.IsNullOrEmpty(searchByRating))
+            {
+                double rating = 0;
+                matched = matched.Where(s => s.rating > rating);
+            }
+
+            //
+            // Sort
+            //
             switch (sortOrder)
             {
                 case "Date":
@@ -221,5 +240,16 @@ namespace WebAppOddsMatcherUtility.Controllers
             }
             base.Dispose(disposing);
         }
+
+        private void SetCollectionForFilter()
+        {
+            var bookmakers = new List<string>();
+            var bookmakerQuery = from s in db.matched_event
+                              orderby s.bookmaker_name
+                              select s.bookmaker_name;
+            bookmakers.AddRange(bookmakerQuery.Distinct());
+            bookmakers.Sort();
+            ViewBag.SearchByBookmaker = new SelectList(bookmakers);
+       }
     }
 }
