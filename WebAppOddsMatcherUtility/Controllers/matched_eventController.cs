@@ -46,8 +46,9 @@ namespace WebAppOddsMatcherUtility.Controllers
             ViewBag.CurrentFilter = searchByBookmaker;
             ViewBag.BookmakerFilter = searchByBookmaker;
 
-            var matched = from s in db.matched_event
-                          select s;
+            var matched = (from s in db.matched_event
+                           orderby s.eventDate ascending
+                           select s).Take(600);
 
             //
             // Filter
