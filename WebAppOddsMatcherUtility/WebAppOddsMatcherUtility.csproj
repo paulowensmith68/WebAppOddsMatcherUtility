@@ -282,12 +282,14 @@
     <Content Include="Content\Site.css" />
     <Content Include="images\10bet.gif" />
     <Content Include="images\12bet.gif" />
-    <Content Include="images\138.gif" />
+    <Content Include="images\138_com.gif" />
     <Content Include="images\188bet.gif" />
-    <Content Include="images\32red_com.gif" />
+    <Content Include="images\24hpoker.gif" />
+    <Content Include="images\32red_bet.gif" />
     <Content Include="images\888sport.gif" />
     <Content Include="images\bet365.gif" />
     <Content Include="images\betclic.gif" />
+    <Content Include="images\betcris.gif" />
     <Content Include="images\betdaq.gif" />
     <Content Include="images\betfair_exchange.gif" />
     <Content Include="images\betfred.gif" />
@@ -297,6 +299,7 @@
     <Content Include="images\bet_at_home_com.gif" />
     <Content Include="images\boyle_sports.gif" />
     <Content Include="images\bwin.gif" />
+    <Content Include="images\carib_sport.gif" />
     <Content Include="images\cashpoint.gif" />
     <Content Include="images\comeon.gif" />
     <Content Include="images\coral.gif" />
@@ -305,6 +308,7 @@
     <Content Include="images\fun88.gif" />
     <Content Include="images\horse.png" />
     <Content Include="images\info.png" />
+    <Content Include="images\intralot_it.gif" />
     <Content Include="images\jetbull.gif" />
     <Content Include="images\ladbrokes.gif" />
     <Content Include="images\marathon.gif" />

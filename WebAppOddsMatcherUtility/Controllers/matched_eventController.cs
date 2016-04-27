@@ -47,7 +47,7 @@ namespace WebAppOddsMatcherUtility.Controllers
             ViewBag.BookmakerFilter = searchByBookmaker;
 
             var matched = (from s in db.matched_event
-                           orderby s.eventDate ascending
+                           orderby s.rating descending
                            select s).Take(600);
 
             //
@@ -62,16 +62,16 @@ namespace WebAppOddsMatcherUtility.Controllers
                 double backFilter = 0;
                 switch (searchByBack)
                 {
-                    case "4 or more":
+                    case "Back bet 4+":
                         backFilter = 4;
                         break;
-                    case "3 or more":
+                    case "Back bet 3+":
                         backFilter = 3;
                         break;
-                    case "2 or more":
+                    case "Back bet 2+":
                         backFilter = 2;
                         break;
-                    case "1 or more":
+                    case "Back bet 1+":
                         backFilter = 1;
                         break;
                 }
@@ -82,25 +82,28 @@ namespace WebAppOddsMatcherUtility.Controllers
                 double sizeFilter = 0;
                 switch (searchBySize)
                 {
-                    case "£1000 or more":
+                    case "Size £2000+":
+                        sizeFilter = 2000;
+                        break;
+                    case "Size £1000+":
                         sizeFilter = 1000;
                         break;
-                    case "£500 or more":
+                    case "Size £500+":
                         sizeFilter = 500;
                         break;
-                    case "£400 or more":
+                    case "Size £400+":
                         sizeFilter = 400;
                         break;
-                    case "£300 or more":
+                    case "Size £300+":
                         sizeFilter = 300;
                         break;
-                    case "£200 or more":
+                    case "Size £200+":
                         sizeFilter = 200;
                         break;
-                    case "£100 or more":
+                    case "Size £100+":
                         sizeFilter = 100;
                         break;
-                    case "£50 or more":
+                    case "Size £50+":
                         sizeFilter = 50;
                         break;
                 }
@@ -299,20 +302,21 @@ namespace WebAppOddsMatcherUtility.Controllers
             ViewBag.SearchByBookmaker = new SelectList(bookmakers);
 
             var backs = new List<string>();
-            backs.Add("4 or more");
-            backs.Add("3 or more");
-            backs.Add("2 or more");
-            backs.Add("1 or more");
+            backs.Add("Back bet 4+");
+            backs.Add("Back bet 3+");
+            backs.Add("Back bet 2+");
+            backs.Add("Back bet 1+");
             ViewBag.SearchByBack = new SelectList(backs);
 
             var sizes = new List<string>();
-            sizes.Add("£1000 or more");
-            sizes.Add("£500 or more");
-            sizes.Add("£400 or more");
-            sizes.Add("£300 or more");
-            sizes.Add("£200 or more");
-            sizes.Add("£100 or more");
-            sizes.Add("£50 or more");
+            sizes.Add("Size £2000+");
+            sizes.Add("Size £1000+");
+            sizes.Add("Size £500+");
+            sizes.Add("Size £400+");
+            sizes.Add("Size £300+");
+            sizes.Add("Size £200+");
+            sizes.Add("Size £100+");
+            sizes.Add("Size £50+");
             ViewBag.SearchBySize = new SelectList(sizes);
         }
 
