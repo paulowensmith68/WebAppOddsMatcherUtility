@@ -2,14 +2,14 @@
 @model PagedList.IPagedList<WebAppOddsMatcherUtility.Models.matched_event>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript">
+@*<script type="text/javascript">
     $(document).ready(function () {
         //for table row
         $("tr:even").css("background-color", "#A8A8A8");
         $("tr:odd").css("background-color", "#FFFFFF");
 
     });
-</script>
+</script>*@
 
 @{
     ViewBag.Title = "Matched";
@@ -29,9 +29,9 @@
             </div>
             <div class="col-md-9">
                 <p>
-                    <b>Bookmaker: @Html.DropDownList("SearchByBookmaker", "All bookmakers")</b>
-                    <b>   Back: @Html.DropDownList("SearchByBack", "All back bets")</b>
-                    <b>   Size: @Html.DropDownList("SearchBySize", "All sizes")</b>
+                    <b>@Html.DropDownList("SearchByBookmaker", "All bookmakers")</b>
+                    <b> @Html.DropDownList("SearchByBack", "All back bets")</b>
+                    <b> @Html.DropDownList("SearchBySize", "All sizes")</b>
 
                     <input class="btn btn-info" type="submit" value="Filter" />
                 </p>
@@ -88,7 +88,7 @@
                     @Html.ValueFor(modelItem => item.eventDate, "{0:dd/MM/yyyy HH:mm}")
                 </td>
                 <td>
-                    <img src=@Html.DisplayFor(modelItem => item.sport) alt="Football">
+                    <img src=@Html.DisplayFor(modelItem => item.sport) alt="Football" data-toggle="popover" title="Football league Premiership">
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.details)
@@ -103,17 +103,157 @@
                     @Html.DisplayFor(modelItem => item.rating)
                 </td>
                 <td>
-                    <img src=@Html.DisplayFor(modelItem => item.info) alt="Infomation">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn-xs" data-toggle="modal" data-target="#exampleModal"  
+                            data-event="@Html.DisplayFor(modelItem => item.details)" 
+                            data-event-date="@Html.ValueFor(modelItem => item.eventDate, "{0:dd/MM/yyyy HH:mm}")" 
+                            data-back="£10"
+                            data-back-odds=@Html.DisplayFor(modelItem => item.back)
+                            data-back-comm="0%"
+                            data-lay-odds=@Html.DisplayFor(modelItem => item.lay)
+                            data-lay-comm="5%"
+                            data-bookmaker-name="@Html.DisplayFor(modelItem => item.bookmaker_name)"
+                            data-exchange-name="Betfair Exchange"
+                            data-market-name="@Html.DisplayFor(modelItem => item.marketName)"
+                            data-bet-name="@Html.DisplayFor(modelItem => item.betName)">
+                            <span class="glyphicon glyphicon-info-sign"></span></button>
+
+                    <!-- Button trigger modal formatting -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>*@
+                                    <h4 class="modal-title" id="exampleModalLabel">Odds Infomation</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <div class="col-md-6">
+                                                    <label for="event-name" class="control-label">Event</label>
+                                                    <input type="text" readonly class="form-control" id="event-name">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="event-date" class="control-label">Date</label>
+                                                    <input type="text" readonly class="form-control" id="event-date">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a>&nbsp;</a>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <div class="col-md-6">
+                                                    <label for="bet-name" class="control-label">Bet</label>
+                                                    <input type="text" readonly class="form-control" id="bet-name">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="market-name" class="control-label">Market</label>
+                                                    <input type="text" readonly class="form-control" id="market-name">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a>&nbsp;</a>
+                                        <div class="row" style="background-color: #D7ECFA;">
+                                            <div class="form-group">
+                                                <div class="col-md-3" style="background-color: #D7ECFA;">
+                                                    <label for="back-odds" class="control-label">Back Odds</label>
+                                                    <input type="text" readonly class="form-control" id="back-odds">
+                                                </div>
+                                                <div class="col-md-3" style="background-color: #D7ECFA;">
+                                                    <label for="back-comm" class="control-label">Back Comm</label>
+                                                    <input type="text" readonly class="form-control" id="back-comm">
+                                                </div>
+                                                <div class="col-md-6" style="background-color: #D7ECFA;">
+                                                    <label for="bookmaker-name" class="control-label">Bookmaker</label>
+                                                    <input type="text" readonly class="form-control" id="bookmaker-name">
+                                                </div>
+                                            </div>
+                                            <br />
+                                        </div>
+                                        <a>&nbsp;</a>
+                                        <div class="row" style="background-color: #FDDEE5">
+                                            <div class="form-group">
+                                                <div class="col-md-3" style="background-color: #FDDEE5;">
+                                                    <label for="lay-odds" class="control-label">Lay Odds</label>
+                                                    <input type="text" readonly  class="form-control" id="lay-odds">
+                                                </div>
+                                                <div class="col-md-3" style="background-color: #FDDEE5;">
+                                                    <label for="lay-comm" class="control-label">Lay Comm</label>
+                                                    <input type="text" readonly class="form-control" id="lay-comm">
+                                                </div>
+                                                <div class="col-md-6" style="background-color: #FDDEE5;">
+                                                    <label for="exchange-name" class="control-label">Exchange</label>
+                                                    <input type="text" readonly class="form-control" id="exchange-name">
+                                                </div>
+                                           </div>
+                                        </div>
+                                        <a>&nbsp;</a>
+                                        <div style="background-color: #dddbd9"><h4 style="text-align: center">Free Bet SNR</h4></div>
+                                        <table class="table">
+                                            <tr>
+                                                <th>
+                                                </th>
+                                                <th style="background-color: #D7ECFA;">
+                                                    £10 Back Stake
+                                                </th>
+                                                <th style="background-color: #D7ECFA;">
+                                                    £20 Back Stake
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <td style="background-color: #FDDEE5">
+                                                    You lay
+                                                </td>
+                                                <td>
+                                                    tbc
+                                                </td>
+                                                <td>
+                                                    tbc
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Liability
+                                                </td>
+                                                <td>
+                                                    tbc
+                                                </td>
+                                                <td>
+                                                    tbc
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    Profit
+                                                </td>
+                                                <td>
+                                                    <input type="text" readonly class="form-control" id="total-10">
+                                                </td>
+                                                <td>
+                                                    tbc
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </td>
+
                 <td style="text-align:center">
                     <img src=@Html.DisplayFor(modelItem => item.bookmaker) alt="Bookmaker">
                 </td>
                 <td style="background-color:#d7ecfa !important;
                      color:#404040;
-                     background-image: none !important;
-                     text-decoration: none !important;
                      border-radius: 5px;
-                     padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px;
+                     padding: 5px; 
                      border-radius: 5px;
                      width: 50px;
                      display: inline-block;
@@ -124,10 +264,8 @@
                 </td>
                 <td style="background-color:#fddee5 !important;
                      color:#404040;
-                     background-image: none !important;
-                     text-decoration: none !important;
                      border-radius: 5px;
-                     padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px;
+                     padding: 5px; 
                      border-radius: 5px;
                      width: 50px;
                      display: inline-block;
@@ -140,8 +278,8 @@
         }
 
     </table>
-    <br />
-    <div id='Paging' style="text-align: center">
+
+     <div id='Paging' style="text-align: center">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
         @Html.PagedListPager(Model, page => Url.Action("Index",
@@ -169,3 +307,62 @@ else
         location.reload();
     }
 </script>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+});
+</script>
+
+<script>
+$('#exampleModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var scriptEvent = button.data('event')
+  var scriptEventDate = button.data('event-date')
+  var scriptBack = button.data('back')
+  var scriptOdds = button.data('back-odds')
+  var scriptComm = button.data('back-comm')
+  var scriptBookmakerName = button.data('bookmaker-name')
+  var scriptLayOdds = button.data('lay-odds')
+  var scriptLayComm = button.data('lay-comm')
+  var scriptExchangeName = button.data('exchange-name')
+  var scriptMarketName = button.data('market-name')
+  var scriptBetName = button.data('bet-name')
+
+  var intTotal = scriptBack * scriptOdds / 100;
+  var strTotal = intTotal.toString();
+
+   
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-body #event-name').val(scriptEvent)
+  modal.find('.modal-body #event-date').val(scriptEventDate)
+  modal.find('.modal-body #back-stack').val(scriptBack)
+  modal.find('.modal-body #back-odds').val(scriptOdds)
+  modal.find('.modal-body #back-comm').val(scriptComm)
+  modal.find('.modal-body #bookmaker-name').val(scriptBookmakerName)
+  modal.find('.modal-body #lay-odds').val(scriptLayOdds)
+  modal.find('.modal-body #lay-comm').val(scriptLayComm)
+  modal.find('.modal-body #exchange-name').val(scriptExchangeName)
+  modal.find('.modal-body #market-name').val(scriptMarketName)
+  modal.find('.modal-body #bet-name').val(scriptBetName)
+  modal.find('.modal-body #total-10').val(strTotal)
+
+})
+</script>
+
+<script>
+$(document).ready(function() {
+   $('#showGame').click(function() {
+        var url = $('#gameModal').data('url');
+
+        $.get(url, function(data) {
+            $('#gameContainer').html(data);
+
+            $('#gameModal').modal('show');
+        });
+   });
+});
+</script>
+

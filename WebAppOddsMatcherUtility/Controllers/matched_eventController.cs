@@ -315,5 +315,7 @@ namespace WebAppOddsMatcherUtility.Controllers
             sizes.Add("£50 or more");
             ViewBag.SearchBySize = new SelectList(sizes);
         }
-    }
+
+   }
+
 }
