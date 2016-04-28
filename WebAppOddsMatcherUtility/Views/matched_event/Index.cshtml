@@ -107,11 +107,10 @@
                     <button type="button" class="btn-xs" data-toggle="modal" data-target="#exampleModal"  
                             data-event="@Html.DisplayFor(modelItem => item.details)" 
                             data-event-date="@Html.ValueFor(modelItem => item.eventDate, "{0:dd/MM/yyyy HH:mm}")" 
-                            data-back="£10"
                             data-back-odds=@Html.DisplayFor(modelItem => item.back)
-                            data-back-comm="0%"
+                            data-back-comm="0"
                             data-lay-odds=@Html.DisplayFor(modelItem => item.lay)
-                            data-lay-comm="5%"
+                            data-lay-comm="0.05"
                             data-bookmaker-name="@Html.DisplayFor(modelItem => item.bookmaker_name)"
                             data-exchange-name="Betfair Exchange"
                             data-market-name="@Html.DisplayFor(modelItem => item.marketName)"
@@ -124,15 +123,23 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>*@
-                                    <h4 class="modal-title" id="exampleModalLabel">Odds Infomation</h4>
+                                    <h5 class="modal-title" id="exampleModalLabel">Odds Infomation</h5>
                                 </div>
                                 <div class="modal-body">
+                                    <div style="padding-bottom:30px">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="inlineRadioOptions" id ="inlineRadioSNR" value="optionSNR"> Free Bet SNR
+                                        </label>
+                                        <label class="radio-inline" style="padding-left:60px">
+                                            <input type="radio" name="inlineRadioOptions" id="inlineRadioSR" value="optionSR"> Free Bet SR (Stake Returned)
+                                        </label>
+                                    </div>
                                     <form>
                                         <div class="row">
                                             <div class="form-group">
                                                 <div class="col-md-6">
                                                     <label for="event-name" class="control-label">Event</label>
-                                                    <input type="text" readonly class="form-control" id="event-name">
+                                                    <input type="text" readonly tabindex=""  class="form-control" id="event-name">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="event-date" class="control-label">Date</label>
@@ -140,8 +147,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <a>&nbsp;</a>
-                                        <div class="row">
+                                        <div class="row" style="padding-top:20px">
                                             <div class="form-group">
                                                 <div class="col-md-6">
                                                     <label for="bet-name" class="control-label">Bet</label>
@@ -154,15 +160,15 @@
                                             </div>
                                         </div>
                                         <a>&nbsp;</a>
-                                        <div class="row" style="background-color: #D7ECFA;">
+                                        <div class="row" style="background-color: #D7ECFA; padding-bottom: 10px">
                                             <div class="form-group">
                                                 <div class="col-md-3" style="background-color: #D7ECFA;">
                                                     <label for="back-odds" class="control-label">Back Odds</label>
-                                                    <input type="text" readonly class="form-control" id="back-odds">
+                                                    <input type="text" readonly class="form-control" style="text-align:right" id="back-odds">
                                                 </div>
                                                 <div class="col-md-3" style="background-color: #D7ECFA;">
                                                     <label for="back-comm" class="control-label">Back Comm</label>
-                                                    <input type="text" readonly class="form-control" id="back-comm">
+                                                    <input type="text" class="form-control" style="text-align:right" id="back-comm">
                                                 </div>
                                                 <div class="col-md-6" style="background-color: #D7ECFA;">
                                                     <label for="bookmaker-name" class="control-label">Bookmaker</label>
@@ -171,73 +177,86 @@
                                             </div>
                                             <br />
                                         </div>
-                                        <a>&nbsp;</a>
-                                        <div class="row" style="background-color: #FDDEE5">
-                                            <div class="form-group">
-                                                <div class="col-md-3" style="background-color: #FDDEE5;">
-                                                    <label for="lay-odds" class="control-label">Lay Odds</label>
-                                                    <input type="text" readonly  class="form-control" id="lay-odds">
+                                        <div style="padding-top: 10px">
+                                            <div class="row" style="background-color: #FDDEE5; padding-bottom: 10px">
+                                                <div class="form-group">
+                                                    <div class="col-md-3" style="background-color: #FDDEE5;">
+                                                        <label for="lay-odds" class="control-label">Lay Odds</label>
+                                                        <input type="text" readonly class="form-control" style="text-align:right" id="lay-odds">
+                                                    </div>
+                                                    <div class="col-md-3" style="background-color: #FDDEE5;">
+                                                        <label for="lay-comm" class="control-label">Lay Comm</label>
+                                                        <input type="text" class="form-control" style="text-align:right" id="lay-comm">
+                                                    </div>
+                                                    <div class="col-md-6" style="background-color: #FDDEE5;">
+                                                        <label for="exchange-name" class="control-label">Exchange</label>
+                                                        <input type="text" readonly class="form-control" id="exchange-name">
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-3" style="background-color: #FDDEE5;">
-                                                    <label for="lay-comm" class="control-label">Lay Comm</label>
-                                                    <input type="text" readonly class="form-control" id="lay-comm">
-                                                </div>
-                                                <div class="col-md-6" style="background-color: #FDDEE5;">
-                                                    <label for="exchange-name" class="control-label">Exchange</label>
-                                                    <input type="text" readonly class="form-control" id="exchange-name">
-                                                </div>
-                                           </div>
+                                            </div>
                                         </div>
-                                        <a>&nbsp;</a>
-                                        <div style="background-color: #dddbd9"><h4 style="text-align: center">Free Bet SNR</h4></div>
-                                        <table class="table">
-                                            <tr>
-                                                <th>
-                                                </th>
-                                                <th style="background-color: #D7ECFA;">
-                                                    £10 Back Stake
-                                                </th>
-                                                <th style="background-color: #D7ECFA;">
-                                                    £20 Back Stake
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <td style="background-color: #FDDEE5">
-                                                    You lay
-                                                </td>
-                                                <td>
-                                                    tbc
-                                                </td>
-                                                <td>
-                                                    tbc
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    Liability
-                                                </td>
-                                                <td>
-                                                    tbc
-                                                </td>
-                                                <td>
-                                                    tbc
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>
-                                                    Profit
-                                                </td>
-                                                <td>
-                                                    <input type="text" readonly class="form-control" id="total-10">
-                                                </td>
-                                                <td>
-                                                    tbc
-                                                </td>
-                                            </tr>
-
-                                        </table>
+                                        <div style="padding-top: 30px">
+                                            <div class="col-md-3">
+                                                <label for="stake" class="control-label">Stake</label>
+                                                <input type="text" class="form-control" style="background-color: #ccfcd3" onchange="changeStakeFunction()" id="stake">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="lay-amount" class="control-label">You Lay</label>
+                                                <input type="text" readonly class="form-control" id="lay-amount">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="liability-amount" class="control-label">Liability</label>
+                                                <input type="text" readonly class="form-control" id="liability-amount">
+                                            </div>
+                                        </div>
                                     </form>
+                                </div>
+                                <a>&nbsp;</a>
+                                <div style="padding-top: 50px">
+                                    <table class="table">
+                                        <tr>
+                                            <th>
+                                                Result
+                                            </th>
+                                            <th>
+                                                Bookmaker balance
+                                            </th>
+                                            <th>
+                                                Exchange Balance
+                                            </th>
+                                            <th>
+                                                Bet Profit
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Bookmaker Win
+                                            </td>
+                                            <td>
+                                                <input type="text" readonly class="form-control" id="bookie-win-bbal">
+                                            </td>
+                                            <td>
+                                                <input type="text" readonly class="form-control" id="bookie-win-xbal">
+                                            </td>
+                                            <td>
+                                                <input type="text" readonly class="form-control" id="bookie-win-profit">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Exchange Win
+                                            </td>
+                                            <td>
+                                                <input type="text" readonly class="form-control" id="exchange-win-bbal">
+                                            </td>
+                                            <td>
+                                                <input type="text" readonly class="form-control" id="exchange-win-xbal">
+                                            </td>
+                                            <td>
+                                                <input type="text" readonly class="form-control" id="exchange-win-profit">
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -319,7 +338,38 @@ $('#exampleModal').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget) // Button that triggered the modal
   var scriptEvent = button.data('event')
   var scriptEventDate = button.data('event-date')
-  var scriptBack = button.data('back')
+  var scriptOdds = button.data('back-odds')
+  var scriptComm = button.data('back-comm')
+  var scriptBookmakerName = button.data('bookmaker-name')
+  var scriptLayOdds = button.data('lay-odds')
+  var scriptLayComm = button.data('lay-comm')
+  var scriptExchangeName = button.data('exchange-name')
+  var scriptMarketName = button.data('market-name')
+  var scriptBetName = button.data('bet-name')
+  
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-body #event-name').val(scriptEvent)
+  modal.find('.modal-body #event-date').val(scriptEventDate)
+  modal.find('.modal-body #back-odds').val(scriptOdds)
+  modal.find('.modal-body #back-comm').val(scriptComm)
+  modal.find('.modal-body #bookmaker-name').val(scriptBookmakerName)
+  modal.find('.modal-body #lay-odds').val(scriptLayOdds)
+  modal.find('.modal-body #lay-comm').val(scriptLayComm)
+  modal.find('.modal-body #exchange-name').val(scriptExchangeName)
+  modal.find('.modal-body #market-name').val(scriptMarketName)
+  modal.find('.modal-body #bet-name').val(scriptBetName)
+  
+})
+</script>
+
+<script>
+$('#exampleModal').on('shown.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var scriptEvent = button.data('event')
+  var scriptEventDate = button.data('event-date')
+  var scriptStake = button.data('stake')
   var scriptOdds = button.data('back-odds')
   var scriptComm = button.data('back-comm')
   var scriptBookmakerName = button.data('bookmaker-name')
@@ -329,16 +379,16 @@ $('#exampleModal').on('show.bs.modal', function (event) {
   var scriptMarketName = button.data('market-name')
   var scriptBetName = button.data('bet-name')
 
-  var intTotal = scriptBack * scriptOdds / 100;
-  var strTotal = intTotal.toString();
+  var result = 0.36 / 100 * 42;
+  var strResult = "£" + result.toString;
 
-   
+
   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
   var modal = $(this)
   modal.find('.modal-body #event-name').val(scriptEvent)
   modal.find('.modal-body #event-date').val(scriptEventDate)
-  modal.find('.modal-body #back-stack').val(scriptBack)
+  modal.find('.modal-body #stake').val(scriptStake)
   modal.find('.modal-body #back-odds').val(scriptOdds)
   modal.find('.modal-body #back-comm').val(scriptComm)
   modal.find('.modal-body #bookmaker-name').val(scriptBookmakerName)
@@ -347,9 +397,91 @@ $('#exampleModal').on('show.bs.modal', function (event) {
   modal.find('.modal-body #exchange-name').val(scriptExchangeName)
   modal.find('.modal-body #market-name').val(scriptMarketName)
   modal.find('.modal-body #bet-name').val(scriptBetName)
-  modal.find('.modal-body #total-10').val(strTotal)
+  modal.find('.modal-body #total-10').val(result)
+
+  $('#inlineRadioSNR').prop('checked', true);
 
 })
+</script>
+
+<script>
+$(function() {
+
+    $('#exampleModal').on('change', function () {
+        var selected = $(this).find("option:selected").val();
+        var scriptStake = document.getElementById("stake").value;
+        var scriptBackOdds = document.getElementById("back-odds").value;
+        var scriptBackComm = document.getElementById("back-comm").value;
+        var scriptLayOdds = document.getElementById("lay-odds").value;
+        var scriptLayComm = document.getElementById("lay-comm").value;
+
+        // Calculate Lay bet
+        //(E3-1)/(E4-F4)*D3
+        var resultLayBet = (scriptBackOdds - 1) / (scriptLayOdds - scriptLayComm) * scriptStake;
+        document.getElementById("lay-amount").value = resultLayBet.toFixed(2);
+
+        // Calculate Liability
+        // D4*(E4-1))
+        var resultLiability = resultLayBet * (scriptLayOdds - 1);
+        document.getElementById("liability-amount").value = resultLiability.toFixed(2);
+
+        //
+        // Bookmaker Win
+        //
+        // Bookie Balance
+        // D3 * (E3 - 1) * (1 - F3)
+        var resultBookmakerWinBB = scriptStake * (scriptBackOdds - 1) * (1 - scriptBackComm)
+        document.getElementById("bookie-win-bbal").value = resultBookmakerWinBB.toFixed(2);
+
+        // Exchange Balance
+        var resultBookmakerWinXB = resultLiability * -1
+        document.getElementById("bookie-win-xbal").value = resultBookmakerWinXB.toFixed(2);
+
+        // Profit
+        var resultBookmakerWinProfit = resultBookmakerWinBB + resultBookmakerWinXB
+        document.getElementById("bookie-win-profit").value = resultBookmakerWinProfit.toFixed(2);
+
+
+        //
+        // Exchange Win
+        //
+        // Exchange Balance
+        var resultExchangeWinBB = 0
+        document.getElementById("exchange-win-bbal").value = resultExchangeWinBB.toFixed(2);
+
+        // Exchange Balance
+        // D4*(1-F4)
+        var resultExchangeWinXB = resultLayBet * (1 - scriptLayComm)
+        document.getElementById("exchange-win-xbal").value = resultExchangeWinXB.toFixed(2);
+
+        // Profit
+        var resultExchangeWinProfit = resultExchangeWinXB
+        document.getElementById("exchange-win-profit").value = resultExchangeWinProfit.toFixed(2);
+
+
+  });
+
+});
+</script>
+
+<script>
+function changeStakeFunction() {
+    var scriptBackOdds = document.getElementById("back-odds").value;
+    var scriptBackComm = document.getElementById("back-comm").value;
+    var scriptLayOdds = document.getElementById("lay-odds").value;
+    var scriptLayComm = document.getElementById("lay-comm").value;
+
+    var result = (scriptBackOdds - 1) * scriptLayOdds;
+    var strResult = "£" + result.toString;
+    modal.find('.modal-body #lay-amount').val(result)
+}
+</script>
+
+<script>
+    function calculateFunction() {
+
+       alert(scriptOdds.toString);
+}
 </script>
 
 <script>
