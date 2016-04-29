@@ -128,13 +128,13 @@
                                 <div class="modal-body">
                                     <div style="padding-bottom:10px">
                                         <label class="radio-inline">
-                                            <input type="radio" tabindex="-1" name="inlineRadioOptions" id="inlineRadioQualifier" value="optionQualifier"> Qualifier
+                                            <input type="radio" tabindex="-1" name="inlineRadioOptions" id="inlineRadioQualifier" value="optionQualifier" data-toggle="tooltip" data-placement="top" title="Qualifying Bet"> Qualifier
                                         </label>
                                         <label class="radio-inline" style="padding-left:40px">
-                                            <input type="radio" tabindex="-1" name="inlineRadioOptions" id="inlineRadioSNR" value="optionSNR"> Free Bet SNR
+                                            <input type="radio" tabindex="-1" name="inlineRadioOptions" id="inlineRadioSNR" value="optionSNR" data-toggle="tooltip" data-placement="top" title="Free Bet, Stake Not Returned"> Free Bet SNR
                                         </label>
                                         <label class="radio-inline" style="padding-left:40px">
-                                            <input type="radio" tabindex="-1" name="inlineRadioOptions" id="inlineRadioSR" value="optionSR"> Free Bet SR
+                                            <input type="radio" tabindex="-1" name="inlineRadioOptions" id="inlineRadioSR" value="optionSR" data-toggle="tooltip" data-placement="top" title="Free Bet, Stake Returned"> Free Bet SR
                                         </label>
                                     </div>
                                     <div style="padding-bottom:10px">
@@ -145,7 +145,7 @@
                                                 <div class="form-group">
                                                     <div class="col-md-3">
                                                         <label for="stake" class="control-label">Stake</label>
-                                                        <input type="text" class="form-control" style="color: white; background-color : #000000" onchange="changeStakeFunction()" id="stake">
+                                                        <input type="text" class="form-control" style="color: white; background-color : #000000" onchange="changeStakeFunction()" id="stake" data-toggle="tooltip" data-placement="top" title="Enter Stake, then hit <Enter> or <Tab> key to calculate">
                                                     </div>
                                                     <div class="col-md-9">
                                                         <label for="event-name" class="control-label">Event</label>
@@ -267,6 +267,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary">Calculate</button>
                                     <button type="button" class="btn btn-default" tabindex="-1" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
