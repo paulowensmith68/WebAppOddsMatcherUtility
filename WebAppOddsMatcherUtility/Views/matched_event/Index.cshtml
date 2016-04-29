@@ -108,7 +108,7 @@
                             data-event="@Html.DisplayFor(modelItem => item.details)" 
                             data-event-date="@Html.ValueFor(modelItem => item.eventDate, "{0:dd/MM/yyyy HH:mm}")" 
                             data-back-odds=@Html.DisplayFor(modelItem => item.back)
-                            data-back-comm="0"
+                            data-back-comm="0.00"
                             data-lay-odds=@Html.DisplayFor(modelItem => item.lay)
                             data-lay-comm="0.05"
                             data-bookmaker-name="@Html.DisplayFor(modelItem => item.bookmaker_name)"
@@ -373,6 +373,17 @@ $(document).ready(function(){
         modal.find('.modal-body #market-name').val(scriptMarketName)
         modal.find('.modal-body #bet-name').val(scriptBetName)
 
+        // Set blank values for calculated fields
+        modal.find('.modal-body #lay-amount').val('')
+        modal.find('.modal-body #liability-amount').val('')
+        modal.find('.modal-body #bookie-win-bbal').val('')
+        modal.find('.modal-body #bookie-win-xbal').val('')
+        modal.find('.modal-body #bookie-win-profit').val('')
+        modal.find('.modal-body #exchange-win-bbal').val('')
+        modal.find('.modal-body #exchange-win-xbal').val('')
+        modal.find('.modal-body #exchange-win-profit').val('')
+
+
         // Select "Qualifier" radio button
         $('#inlineRadioQualifier').prop('checked', true);
 
@@ -556,45 +567,9 @@ $(function() {
 
 <script>
     $('#exampleModal').on('hidden.bs.modal', function (e) {
-        $(this)
-          .find("input,textarea,select")
-             .val('')
-             .end()
+
+
+        $(this).data('bs.modal', null);
+
     })
 </script>
-
-<script>
-function changeStakeFunction() {
-    var scriptBackOdds = document.getElementById("back-odds").value;
-    var scriptBackComm = document.getElementById("back-comm").value;
-    var scriptLayOdds = document.getElementById("lay-odds").value;
-    var scriptLayComm = document.getElementById("lay-comm").value;
-
-    var result = (scriptBackOdds - 1) * scriptLayOdds;
-    var strResult = "£" + result.toString;
-    modal.find('.modal-body #lay-amount').val(result)
-}
-</script>
-
-<script>
-    function calculateFunction() {
-
-       alert(scriptOdds.toString);
-}
-</script>
-
-<script>
-$(document).ready(function() {
-   $('#showGame').click(function() {
-        var url = $('#gameModal').data('url');
-
-        $.get(url, function(data) {
-            $('#gameContainer').html(data);
-
-            $('#gameModal').modal('show');
-        });
-   });
-});
-</script>
-
-
