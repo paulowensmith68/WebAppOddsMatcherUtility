@@ -128,13 +128,13 @@
                                 <div class="modal-body">
                                     <div style="padding-bottom:10px">
                                         <label class="radio-inline">
-                                            <input type="radio" name="inlineRadioOptions" id="inlineRadioQualifier" value="optionQualifier"> Qualifier
+                                            <input type="radio" tabindex="-1" name="inlineRadioOptions" id="inlineRadioQualifier" value="optionQualifier"> Qualifier
                                         </label>
                                         <label class="radio-inline" style="padding-left:40px">
-                                            <input type="radio" name="inlineRadioOptions" id ="inlineRadioSNR" value="optionSNR"> Free Bet SNR
+                                            <input type="radio" tabindex="-1" name="inlineRadioOptions" id ="inlineRadioSNR" value="optionSNR"> Free Bet SNR
                                         </label>
                                         <label class="radio-inline" style="padding-left:40px">
-                                            <input type="radio" name="inlineRadioOptions" id="inlineRadioSR" value="optionSR"> Free Bet SR 
+                                            <input type="radio" tabindex="-1" name="inlineRadioOptions" id="inlineRadioSR" value="optionSR"> Free Bet SR 
                                         </label>
                                     </div>
                                     <div style="padding-bottom:10px">
@@ -145,11 +145,11 @@
                                                 <div class="form-group">
                                                     <div class="col-md-3">
                                                         <label for="stake" class="control-label">Stake</label>
-                                                        <input type="text" class="form-control" style="background-color: #ccfcd3" onchange="changeStakeFunction()" id="stake">
+                                                        <input type="text" class="form-control" style="color: white; background-color : #000000" onchange="changeStakeFunction()" id="stake">
                                                     </div>
                                                     <div class="col-md-9">
                                                         <label for="event-name" class="control-label">Event</label>
-                                                        <input type="text" readonly tabindex="" class="form-control" id="event-name">
+                                                        <input type="text" readonly tabindex="-1" class="form-control" id="event-name">
                                                     </div>
                                                 </div>
                                             </div>
@@ -158,15 +158,15 @@
                                                 <div class="form-group">
                                                     <div class="col-md-4">
                                                         <label for="event-date" class="control-label">Date</label>
-                                                        <input type="text" readonly class="form-control" id="event-date">
+                                                        <input type="text" readonly tabindex="-1" class="form-control" id="event-date">
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label for="bet-name" class="control-label">Bet</label>
-                                                        <input type="text" readonly class="form-control" id="bet-name">
+                                                        <input type="text" readonly tabindex="-1" class="form-control" id="bet-name">
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label for="market-name" class="control-label">Market</label>
-                                                        <input type="text" readonly class="form-control" id="market-name">
+                                                        <input type="text" readonly tabindex="-1" class="form-control" id="market-name">
                                                     </div>
                                                 </div>
                                             </div>
@@ -175,15 +175,15 @@
                                                 <div class="form-group">
                                                     <div class="col-md-3" style="background-color: #D7ECFA;">
                                                         <label for="back-odds" class="control-label">Back Odds</label>
-                                                        <input type="text" readonly class="form-control" style="text-align:right" id="back-odds">
+                                                        <input type="text" readonly tabindex="-1" class="form-control" style="text-align:right" id="back-odds">
                                                     </div>
                                                     <div class="col-md-3" style="background-color: #D7ECFA;">
                                                         <label for="back-comm" class="control-label">Back Comm</label>
-                                                        <input type="text" class="form-control" style="text-align:right" id="back-comm">
+                                                        <input type="text" tabindex="-1" class="form-control" style="text-align:right" id="back-comm">
                                                     </div>
                                                     <div class="col-md-6" style="background-color: #D7ECFA;">
                                                         <label for="bookmaker-name" class="control-label">Bookmaker</label>
-                                                        <input type="text" readonly class="form-control" id="bookmaker-name">
+                                                        <input type="text" readonly tabindex="-1" class="form-control" id="bookmaker-name">
                                                     </div>
                                                 </div>
                                                 <br />
@@ -193,15 +193,15 @@
                                                     <div class="form-group">
                                                         <div class="col-md-3" style="background-color: #FDDEE5;">
                                                             <label for="lay-odds" class="control-label">Lay Odds</label>
-                                                            <input type="text" readonly class="form-control" style="text-align:right" id="lay-odds">
+                                                            <input type="text" readonly tabindex="-1" class="form-control" style="text-align:right" id="lay-odds">
                                                         </div>
                                                         <div class="col-md-3" style="background-color: #FDDEE5;">
                                                             <label for="lay-comm" class="control-label">Lay Comm</label>
-                                                            <input type="text" class="form-control" style="text-align:right" id="lay-comm">
+                                                            <input type="text" tabindex="-1" class="form-control" style="text-align:right" id="lay-comm">
                                                         </div>
                                                         <div class="col-md-6" style="background-color: #FDDEE5;">
                                                             <label for="exchange-name" class="control-label">Exchange</label>
-                                                            <input type="text" readonly class="form-control" id="exchange-name">
+                                                            <input type="text" readonly tabindex="-1"  class="form-control" id="exchange-name">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -209,11 +209,11 @@
                                                     <div class="form-group">
                                                         <div class="col-md-3">
                                                             <label for="lay-amount" class="control-label">You Lay</label>
-                                                            <input type="text" readonly class="form-control" id="lay-amount">
+                                                            <input type="text" readonly tabindex="-1" class="form-control" style="text-align:right" id="lay-amount">
                                                         </div>
                                                         <div class="col-md-3">
                                                             <label for="liability-amount" class="control-label">Liability</label>
-                                                            <input type="text" readonly class="form-control" id="liability-amount">
+                                                            <input type="text" readonly tabindex="-1" class="form-control" style="text-align:right" id="liability-amount">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -242,13 +242,13 @@
                                                 Bookmaker Win
                                             </td>
                                             <td>
-                                                <input type="text" readonly class="form-control" id="bookie-win-bbal">
+                                                <input type="text" readonly tabindex="-1"  class="form-control" id="bookie-win-bbal">
                                             </td>
                                             <td>
-                                                <input type="text" readonly class="form-control" id="bookie-win-xbal">
+                                                <input type="text" readonly tabindex="-1"  class="form-control" id="bookie-win-xbal">
                                             </td>
                                             <td>
-                                                <input type="text" readonly class="form-control" id="bookie-win-profit">
+                                                <input type="text" readonly tabindex="-1"  class="form-control" id="bookie-win-profit" style="text-align:center">
                                             </td>
                                         </tr>
                                         <tr>
@@ -256,19 +256,19 @@
                                                 Exchange Win
                                             </td>
                                             <td>
-                                                <input type="text" readonly class="form-control" id="exchange-win-bbal">
+                                                <input type="text" readonly tabindex="-1" class="form-control" id="exchange-win-bbal">
                                             </td>
                                             <td>
-                                                <input type="text" readonly class="form-control" id="exchange-win-xbal">
+                                                <input type="text" readonly tabindex="-1" class="form-control" id="exchange-win-xbal">
                                             </td>
                                             <td>
-                                                <input type="text" readonly class="form-control" id="exchange-win-profit">
+                                                <input type="text" readonly tabindex="-1" class="form-control" id="exchange-win-profit" style="text-align:center">
                                             </td>
                                         </tr>
                                     </table>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-default" tabindex="-1" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>
@@ -559,6 +559,31 @@ $(function() {
             document.getElementById("exchange-win-profit").value = resultExchangeWinProfit.toFixed(2);
 
         }
+
+        // Colour the Bet Profit fields red when not a profit
+        if (resultBookmakerWinProfit < 0) {
+            var targetbox = document.getElementById("bookie-win-profit");
+            targetbox.style.backgroundColor="red"
+            targetbox.style.color = "white"
+        }
+        if (resultExchangeWinProfit < 0) {
+            var targetbox = document.getElementById("exchange-win-profit");
+            targetbox.style.backgroundColor = "red"
+            targetbox.style.color = "white"
+        }
+
+        // Colour the Bet Profit fields Green when a profit
+        if (resultBookmakerWinProfit > 0) {
+            var targetbox = document.getElementById("bookie-win-profit");
+            targetbox.style.backgroundColor = "green"
+            targetbox.style.color = "white"
+        }
+        if (resultExchangeWinProfit > 0) {
+            var targetbox = document.getElementById("exchange-win-profit");
+            targetbox.style.backgroundColor = "green"
+            targetbox.style.color = "white"
+        }
+
 
   });
 
