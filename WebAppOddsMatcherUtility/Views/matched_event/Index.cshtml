@@ -62,7 +62,7 @@
                 @Html.ActionLink("Rating", "Index", new { sortOrder = ViewBag.RatingSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
             </th>
             <th style="color: #000000; background: #effea5;">
-                Info
+                Profit
             </th>
             <th style="color: #fff; background: #effea5; text-align:center">
                 @Html.ActionLink("Bookmaker", "Index", new { sortOrder = ViewBag.BookmakerSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
@@ -115,7 +115,7 @@
                             data-exchange-name="Betfair Exchange"
                             data-market-name="@Html.DisplayFor(modelItem => item.marketName)"
                             data-bet-name="@Html.DisplayFor(modelItem => item.betName)">
-                            <span class="glyphicon glyphicon-info-sign"></span></button>
+                            <span class="glyphicon glyphicon-gbp"></span></button>
 
                     <!-- Button trigger modal formatting -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
