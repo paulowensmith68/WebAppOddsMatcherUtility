@@ -34,7 +34,7 @@
           <Property Name="del" Type="enum" Nullable="false" />
         </EntityType>
         <EntityContainer Name="oddsmatchingModelStoreContainer">
-          <EntitySet Name="matched_event" EntityType="Self.matched_event" Schema="oddsmatching" store:Type="Tables" />
+          <EntitySet Name="matched_event" EntityType="Self.matched_event" Schema="oddsp1" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
