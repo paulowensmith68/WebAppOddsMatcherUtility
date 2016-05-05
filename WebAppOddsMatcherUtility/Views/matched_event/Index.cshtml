@@ -104,7 +104,7 @@
                 </td>
                 <td>
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn-xs" data-toggle="modal" data-target="#exampleModal"  
+                    <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#exampleModal"  
                             data-event="@Html.DisplayFor(modelItem => item.details)" 
                             data-event-date="@Html.ValueFor(modelItem => item.eventDate, "{0:dd/MM/yyyy HH:mm}")" 
                             data-back-odds=@Html.DisplayFor(modelItem => item.back)
@@ -115,7 +115,7 @@
                             data-exchange-name="Betfair Exchange"
                             data-market-name="@Html.DisplayFor(modelItem => item.marketName)"
                             data-bet-name="@Html.DisplayFor(modelItem => item.betName)">
-                            <span class="glyphicon glyphicon-gbp"></span></button>
+                            <span class="glyphicon glyphicon-gbp" style="padding: 2px;"></span></button>
 
                     <!-- Button trigger modal formatting -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
@@ -278,26 +278,24 @@
                 <td style="text-align:center">
                     <img src=@Html.DisplayFor(modelItem => item.bookmaker) alt="Bookmaker">
                 </td>
-                <td style="background-color:#d7ecfa !important;
+                <td><span style="background-color:#d7ecfa !important;
                      color:#404040;
                      border-radius: 5px;
-                     padding: 5px; 
-                     border-radius: 5px;
+                     padding: 2px; 
                      width: 50px;
                      display: inline-block;
-                     text-align: center;">@Html.DisplayFor(modelItem => item.back)
+                     text-align: center !important;">@Html.DisplayFor(modelItem => item.back)</span>
                 </td>
                 <td>
                     <img src=@Html.DisplayFor(modelItem => item.exchange) alt="Exchange">
                 </td>
-                <td style="background-color:#fddee5 !important;
+                <td><span style="background-color:#fddee5 !important;
                      color:#404040;
                      border-radius: 5px;
-                     padding: 5px; 
-                     border-radius: 5px;
+                     padding: 2px; 
                      width: 50px;
                      display: inline-block;
-                     text-align: center;">@Html.DisplayFor(modelItem => item.lay)
+                     text-align: center !important;">@Html.DisplayFor(modelItem => item.lay)</span>
                 </td>
                 <td style="text-align:center">
                     @Html.DisplayFor(modelItem => item.size)
