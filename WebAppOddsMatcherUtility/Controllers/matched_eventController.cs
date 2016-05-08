@@ -299,6 +299,10 @@ namespace WebAppOddsMatcherUtility.Controllers
                               select s.bookmaker_name;
             bookmakers.AddRange(bookmakerQuery.Distinct());
             bookmakers.Sort();
+            
+            // ALEX test new filter components
+            ViewBag.FilterByBookie = bookmakers;
+
             ViewBag.SearchByBookmaker = new SelectList(bookmakers);
 
             var backs = new List<string>();
