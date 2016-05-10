@@ -36,6 +36,7 @@
                     @using (Html.BeginForm("Index", "matched_event", FormMethod.Get))
                     {
                     <span class="old-filters">@Html.DropDownList("SearchByBookmaker", null, "All bookmakers", new { @class = "form-control input-sm", @onchange="submitOldFilterForm(this);" })</span>
+                    <span class="old-filters">@Html.DropDownList("SearchByMarketType", null, "All markets", new { @class = "form-control input-sm", @onchange = "submitOldFilterForm(this);" })</span>
                     <span class="old-filters">@Html.DropDownList("SearchByBack", null, "All back bets", new { @class = "form-control input-sm", @onchange = "submitOldFilterForm(this);" })</span>
                     <span class="old-filters">@Html.DropDownList("SearchBySize", null, "All sizes", new { @class = "form-control input-sm", @onchange = "submitOldFilterForm(this);" })</span>
                     }
@@ -100,38 +101,23 @@
                     </div>
                     <div class="panel-body">
                         <ul class="list-group">
-                            <li class="list-group-item">
-                                <div class="checkbox">
-                                    <input type="checkbox" class="cb_market" id="cb_market_one" />
-                                    <label for="checkbox">
-                                        Market 1
-                                    </label>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="checkbox">
-                                    <input type="checkbox" class="cb_market" id="cb_market_two" />
-                                    <label for="checkbox">
-                                        Market 2
-                                    </label>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="checkbox">
-                                    <input type="checkbox" class="cb_market" id="cb_market_three" />
-                                    <label for="checkbox">
-                                        Market 3
-                                    </label>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="checkbox">
-                                    <input type="checkbox" class="cb_market" id="cb_market_four" />
-                                    <label for="checkbox">
-                                        Market 4
-                                    </label>
-                                </div>
-                            </li>
+                            @foreach (var market in ViewBag.FilterByMarketType)
+                            {
+                                <li class="list-group-item">
+                                    <div class="checkbox">
+                                        <!--
+                                        TODO: need to uniquely name the check boxes
+                                            (   and be able to set them all on or off from panel heading,
+                                                and be able to post more than one value to server, and lots of other bits...    )
+                                        -->
+                                        <input type="checkbox" class="cb_market" id="cb_market_@Html.DisplayFor(modelItem => market)" />
+                                        <label for="checkbox">
+                                            @Html.DisplayFor(modelItem => market)
+                                        </label>
+                                    </div>
+                                </li>
+                            }
+
                         </ul>
                     </div>
                 </div>
@@ -356,42 +342,42 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.ActionLink("Event Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
+                                @Html.ActionLink("Event Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
                             </th>
                             <th>
                                 Sport
                             </th>
                             <th>
-                                @Html.ActionLink("Details", "Index", new { sortOrder = ViewBag.DetailsSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
+                                @Html.ActionLink("Details", "Index", new { sortOrder = ViewBag.DetailsSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
                             </th>
                             <th>
-                                @Html.ActionLink("Bet", "Index", new { sortOrder = ViewBag.BetSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
+                                @Html.ActionLink("Bet", "Index", new { sortOrder = ViewBag.BetSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
                             </th>
                             <th>
-                                @Html.ActionLink("Market", "Index", new { sortOrder = ViewBag.MarketSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
+                                @Html.ActionLink("Market", "Index", new { sortOrder = ViewBag.MarketSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
                             </th>
                             <th>
-                                @Html.ActionLink("Rating", "Index", new { sortOrder = ViewBag.RatingSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
+                                @Html.ActionLink("Rating", "Index", new { sortOrder = ViewBag.RatingSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
                             </th>
                             <th>
                                 Profit
                             </th>
                             <th>
                                 <div class="split-cell">
-                                    @Html.ActionLink("Bookmaker", "Index", new { sortOrder = ViewBag.BookmakerSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
+                                    @Html.ActionLink("Bookmaker", "Index", new { sortOrder = ViewBag.BookmakerSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
                                 </div>
                                 <div>
-                                    @Html.ActionLink("Exchange", "Index", new { sortOrder = ViewBag.ExchangeSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
+                                    @Html.ActionLink("Exchange", "Index", new { sortOrder = ViewBag.ExchangeSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
                                 </div>
                             </th>
                             <th>
-                                @Html.ActionLink("Back", "Index", new { sortOrder = ViewBag.BackSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
+                                @Html.ActionLink("Back", "Index", new { sortOrder = ViewBag.BackSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
                             </th>
                             <th>
-                                @Html.ActionLink("Lay", "Index", new { sortOrder = ViewBag.LaySortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
+                                @Html.ActionLink("Lay", "Index", new { sortOrder = ViewBag.LaySortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
                             </th>
                             <th>
-                                @Html.ActionLink("Size", "Index", new { sortOrder = ViewBag.SizeSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
+                                @Html.ActionLink("Size", "Index", new { sortOrder = ViewBag.SizeSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
                             </th>
                         </tr>
                     </thead>
@@ -460,7 +446,7 @@
                 <div id='Paging' class="text-center">
                     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter }))
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter }))
                 </div>
             </div>
         </div>

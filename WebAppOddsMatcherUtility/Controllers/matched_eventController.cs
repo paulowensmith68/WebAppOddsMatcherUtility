@@ -17,7 +17,7 @@ namespace WebAppOddsMatcherUtility.Controllers
         private oddsmatchingEntities db = new oddsmatchingEntities();
 
         // GET: matched_event
-        public ActionResult Index(string sortOrder, string currentFilter, string searchByBookmaker, string searchByBack, string searchBySize, int? page)
+        public ActionResult Index(string sortOrder, string currentFilter, string searchByBookmaker, string searchByMarketType, string searchByBack, string searchBySize, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
@@ -53,9 +53,15 @@ namespace WebAppOddsMatcherUtility.Controllers
             //
             // Filter
             //
+            // Bookmaker filter
             if (!String.IsNullOrEmpty(searchByBookmaker))
             {
                 matched = matched.Where(s => s.bookmaker_name.Contains(searchByBookmaker));
+            }
+            // Market Type filter
+            if (!String.IsNullOrEmpty(searchByMarketType))
+            {
+                matched = matched.Where(s => s.marketName.Contains(searchByMarketType));
             }
             if (!String.IsNullOrEmpty(searchByBack))
             {
@@ -322,6 +328,18 @@ namespace WebAppOddsMatcherUtility.Controllers
             sizes.Add("Size £100+");
             sizes.Add("Size £50+");
             ViewBag.SearchBySize = new SelectList(sizes);
+
+            var marketTypes = new List<string>();
+            var marketTypeQuery = from s in db.matched_event
+                                 orderby s.marketName
+                                 select s.marketName;
+            marketTypes.AddRange(marketTypeQuery.Distinct());
+            marketTypes.Sort();
+
+            // ALEX test new filter components
+            ViewBag.FilterByMarketType = marketTypes;
+
+            ViewBag.SearchByMarketType = new SelectList(marketTypes);
         }
 
    }
