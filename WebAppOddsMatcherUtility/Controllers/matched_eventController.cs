@@ -32,6 +32,7 @@ namespace WebAppOddsMatcherUtility.Controllers
             ViewBag.SizeSortParm = sortOrder == "size" ? "size_desc" : "size";
 
             ViewBag.CurrentFilter = searchByBookmaker;
+            ViewBag.MarketTypeFilter = searchByMarketType;
             ViewBag.BackFilter = searchByBack;
             ViewBag.SizeFilter = searchBySize;
 
@@ -48,7 +49,7 @@ namespace WebAppOddsMatcherUtility.Controllers
 
             var matched = (from s in db.matched_event
                            orderby s.rating descending
-                           select s).Take(1000);
+                           select s).Take(2000);
 
             //
             // Filter
