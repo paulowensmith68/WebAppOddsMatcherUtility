@@ -17,7 +17,7 @@ namespace WebAppOddsMatcherUtility.Controllers
         private oddsmatchingEntities db = new oddsmatchingEntities();
 
         // GET: matched_event
-        public ActionResult Index(string sortOrder, string currentFilter, string searchByBookmaker, string searchByMarketType, string searchByBack, string searchBySize, int? page)
+        public ActionResult Index(int? page, string sortOrder, string currentFilter, string searchByBookmaker, string searchByMarketType, string searchByBack, string searchBySize)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
@@ -49,7 +49,7 @@ namespace WebAppOddsMatcherUtility.Controllers
 
             var matched = (from s in db.matched_event
                            orderby s.rating descending
-                           select s).Take(2000);
+                           select s).Take(2500);
 
             //
             // Filter
