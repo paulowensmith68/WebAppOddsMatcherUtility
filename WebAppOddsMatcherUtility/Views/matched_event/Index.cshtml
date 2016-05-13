@@ -2,6 +2,9 @@
 @model PagedList.IPagedList<WebAppOddsMatcherUtility.Models.matched_event>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/ion.rangeSlider.css" rel="stylesheet" type="text/css" />
+<!-- <link href="~/Content/ion.rangeSlider.skinFlat.css" rel="stylesheet" type="text/css" /> -->
+<link href="~/Content/ion.rangeSlider.skinHTML5.css" rel="stylesheet" type="text/css" />
 <link href="~/Content/Custom.css" rel="stylesheet" type="text/css" />
 
 @{
@@ -10,20 +13,20 @@
 
     <div id="control_area">
         <div class="row">
-            <div class="col-sm-12 col-md-6">
+            <div class="col-sm-12 col-md-6 text-center" style="margin-bottom: 10px;">
                 <div id="bet_type_selector_group" class="btn-group btn-group-sm" role="group" aria-label="bet type" data-toggle="buttons">
                     <label class="btn btn-primary active"><input type="radio" name="bet_type_selector" id="bt_normal_qual" checked> Normal Qualifier</label>
                     <label class="btn btn-primary"><input type="radio" name="bet_type_selector" id="bt_free_no_return"> Free Bet Stake Not Returned (SNR)</label>
                     <label class="btn btn-primary"><input type="radio" name="bet_type_selector" id="bt_free_bet_returned"> Free Bet Stake Returned (SR)</label>
                 </div>
             </div>
-            <div class="col-sm-6 col-md-3">
+            <div class="col-sm-6 col-md-3 text-center" style="margin-bottom: 10px;">
                 <div class="input-group input-group-sm">
                     <span class="input-group-addon" id="stake_amount">Stake Amount =</span>
                     <input type="text" class="form-control" id="stake_amount_val" name="stake_amount_val" aria-describedby="stake_amount">
                 </div>
             </div>
-            <div class="col-sm-6 col-md-3">
+            <div class="col-sm-6 col-md-3 text-center" style="margin-bottom: 10px;">
                 <div class="input-group input-group-sm">
                     <span class="input-group-addon" id="exchange_balance">Exchange Balance =</span>
                     <input type="text" class="form-control" id="exchange_balance_val" name="exchange_balance_val" aria-describedby="exchange_balance">
@@ -303,7 +306,7 @@
                     <div class="col-sm-12 col-md-12">
                         @*see https://github.com/seiyria/bootstrap-slider example #13*@
                         @*<input id="timeframe" type="text" data-provide="slider" data-slider-tooltip="hide" data-slider-ticks="[0, 1, 2, 3, 4, 5, 6 ,7]" data-slider-ticks-snap-bounds="30" data-slider-ticks-labels='["Now", "30mins", "1hr", "12hrs", "1day","3days","7days","No limit"]' data-slider-step="1" />*@
-                        <div id="timeframe_group" class="btn-group btn-group-xs" role="group" aria-label="Timeframe" data-toggle="buttons">
+                        <!-- <div id="timeframe_group" class="btn-group btn-group-xs" role="group" aria-label="Timeframe" data-toggle="buttons">
                             <label class="btn btn-primary active"><input type="radio" id="bt_now_time_filter" name="timeframe" checked> Now</label>
                             <label class="btn btn-primary"><input type="radio" id="bt_30m_time_filter" name="timeframe"> 30 mins</label>
                             <label class="btn btn-primary"><input type="radio" id="bt_1h_time_filter" name="timeframe"> 1 hr</label>
@@ -312,7 +315,9 @@
                             <label class="btn btn-primary"><input type="radio" id="bt_3d_time_filter" name="timeframe"> 3 days</label>
                             <label class="btn btn-primary"><input type="radio" id="bt_7d_time_filter" name="timeframe"> 7 days</label>
                             <label class="btn btn-primary"><input type="radio" id="bt_no_time_filter" name="timeframe"> None</label>
-                        </div>
+                        </div> -->
+                        <input type="text" id="timeframe" name="timeframe" value="now" />
+
                     </div>
                 </div>
             </div> <!-- /col-md-4 -->
@@ -625,7 +630,7 @@ else
         <p> There are no matches for the filter.</p>
     }
 }
-
+<script src="~/Scripts/ion.rangeSlider.min.js" type="text/javascript"></script>
             <script>
                 function myFunction() {
                     location.reload();
@@ -644,6 +649,15 @@ else
                     $('.cb_bookmaker').prop('checked', true);
                     $('#cb_exchange_all').prop('checked', true);
                     $('.cb_exchange').prop('checked', true);
+
+                    $("#timeframe").ionRangeSlider({
+                        grid: true,
+                        from: 0,
+                        force_edges: true,
+                        values: [
+                            "Now", "30mins", "1hr", "12hrs", "1day", "3days", "7days", "No limit"
+                        ]
+                    });
 
                     // click / change handlers for setting the 'all' filter tick boxes
                     $('#cb_sport_all').click(function () {
