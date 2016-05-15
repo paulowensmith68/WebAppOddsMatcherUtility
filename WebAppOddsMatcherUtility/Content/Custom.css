@@ -9,7 +9,7 @@ button.profit-btn > span {
 }
 
 /* blue background around the Back column values */
-table > tbody > tr > td > span.back-highlight {
+table > tbody > tr > td > div > span.back-highlight {
     background-color:#d7ecfa !important;
     color:#404040;
     border-radius: 5px;
@@ -20,7 +20,7 @@ table > tbody > tr > td > span.back-highlight {
 }
 
 /* pink background around the lay column values */
-table > tbody > tr > td > span.lay-highlight {
+table > tbody > tr > td > div > span.lay-highlight {
     background-color: #fddee5 !important;
     color: #404040;
     border-radius: 5px;
@@ -44,6 +44,14 @@ table > tbody > tr > td > span.lay-highlight {
 .bg-pink {
     background-color: #FDDEE5;
 }
+
+.split-hcell{ border-bottom: 2px dotted #ddd; }
+.split-cell-top{ border-bottom: 2px dotted #ddd; min-height: 35px; }
+.split-cell-bottom{ min-height: 35px; }
+.vert-mid{ vertical-align: middle !important; }
+.liability-highlight { border: 1px solid red; background-color: #FDDEE5; }
+.availability-highlight { border: 1px solid green; background-color: #01FF10; }
+
 
 /* custom shortcuts for common padding and margins */
 .p-t-5 { padding-top: 5px !important;}
@@ -83,11 +91,9 @@ table > tbody > tr > td > span.lay-highlight {
 .list-group-item {padding: 0 10px !important; border-left:none !important; border-right:none !important} /* override bootstrap defaults */
 .list-group-item:first-child { border-top-left-radius: 0 !important; border-top-right-radius: 0 !important;} /* override bootstrap defaults */
 .list-group-item:last-child { border-bottom-left-radius: 0 !important; border-bottom-right-radius: 0 !important;} /* override bootstrap defaults */
-.list-group-item:hover, a.list-group-item:focus {text-decoration: none; background-color: rgb(245, 245, 245);}
+.list-group-item:hover, a.list-group-item:focus { text-decoration: none; background-color: rgb(245, 245, 245); }
 .list-group { margin-bottom:0px; }
-.slider { width: 95% !important;}
-.split-cell{border-bottom: 2px dotted #ddd;}
 
 /* controls section */
 #control_area{ border: 1px solid #ddd; border-radius: 4px; padding:5px; background-color: #dedede; margin-bottom: 10px; }
-.old-filters{display: inline-block; padding-right: 10px;}
+.old-filters{ display: inline-block; padding-right: 10px; }
