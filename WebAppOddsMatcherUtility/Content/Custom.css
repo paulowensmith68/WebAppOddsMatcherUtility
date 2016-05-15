@@ -14,7 +14,7 @@ table > tbody > tr > td > div > span.back-highlight {
     color:#404040;
     border-radius: 5px;
     padding: 2px; 
-    width: 50px;
+    width: 100%;
     display: inline-block;
     text-align: center !important;
 }
@@ -25,7 +25,7 @@ table > tbody > tr > td > div > span.lay-highlight {
     color: #404040;
     border-radius: 5px;
     padding: 2px;
-    width: 50px;
+    width: 100%;
     display: inline-block;
     text-align: center !important;
 }
@@ -46,11 +46,13 @@ table > tbody > tr > td > div > span.lay-highlight {
 }
 
 .split-hcell{ border-bottom: 2px dotted #ddd; }
-.split-cell-top{ border-bottom: 2px dotted #ddd; min-height: 35px; }
-.split-cell-bottom{ min-height: 35px; }
-.vert-mid{ vertical-align: middle !important; }
-.liability-highlight { border: 1px solid red; background-color: #FDDEE5; }
-.availability-highlight { border: 1px solid green; background-color: #01FF10; }
+.split-cell-top{ border-bottom: 2px dotted #ddd; min-height: 35px; min-width: 75px }
+.split-cell-bottom{ min-height: 35px; min-width: 75px}
+.split-cell-top-sm{ border-bottom: 2px dotted #ddd; min-height: 35px; }
+.split-cell-bottom-sm{ min-height: 35px; }
+.fixed-cell{ width: 100px; height: 90px; }
+.liability-highlight { border: 1px solid red; background-color: #FDDEE5; border-radius: 2px; height: 100%; width: 100%; padding-top:24px; }
+.availability-highlight { border: 1px solid green; background-color: #90EB90; border-radius: 2px; height: 100%; width: 100%; padding-top:24px; }
 
 
 /* custom shortcuts for common padding and margins */
