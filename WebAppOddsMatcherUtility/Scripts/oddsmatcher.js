@@ -57,6 +57,12 @@ ODDS_NS.init = function()
         $('#cb_exchange_all').prop('checked', check);
     });
 
+    // change handler for the bet type radio buttons
+    $('input[name="bet_type_selector"]').on('change', ODDS_NS.inlineCalculate);
+
+    // call inline calculator with preset values
+    ODDS_NS.inlineCalculate();
+
 
     //
     // Modal caclulator functions
@@ -92,76 +98,142 @@ ODDS_NS.inlineCalculate = function()
 
 ODDS_NS.calc = function( i, row )
 {
+    $(row).find('span#stake_entered').html( ODDS_NS.g_stake.toFixed(2) );
+
     var dataButton = $(row).find('td:last > button');
-    //var scriptEvent = dataButton.data('event');
-    //var scriptEventDate = dataButton.data('event-date');
     var scriptBackOdds = dataButton.data('back-odds');
     var scriptBackComm = dataButton.data('back-comm');
-    //var scriptBookmakerName = dataButton.data('bookmaker-name');
     var scriptLayOdds = dataButton.data('lay-odds');
     var scriptLayComm = dataButton.data('lay-comm');
-    //var scriptExchangeName = dataButton.data('exchange-name');
-    //var scriptMarketName = dataButton.data('market-name');
-    //var scriptBetName = dataButton.data('bet-name');
 
     //
     // Calculate Qualifier
     //
-    if (ODDS_NS.g_betType === "optionQualifier") {
-
+    
+    if (ODDS_NS.g_betType == "optionQualifier") {
         // Calculate Lay bet
         // E3/(E4-F4)*D3
         var resultLayBet = scriptBackOdds / (scriptLayOdds - scriptLayComm) * ODDS_NS.g_stake;
-
-        // ********************************************
-        // TODO: got here
-        // ********************************************
-
-        $(row).find('td')
-        document.getElementById("lay-amount").value = resultLayBet.toFixed(2);
+        $(row).find('span#you_lay').html( resultLayBet.toFixed(2) );
 
         // Calculate Liability
         // D4*(E4-1))
         var resultLiability = resultLayBet * (scriptLayOdds - 1);
-        document.getElementById("liability-amount").value = resultLiability.toFixed(2);
+        $(row).find('#liability').html(resultLiability.toFixed(2));
 
         //
         // Bookmaker Win
         //
         // Bookie Balance
         // D3 * (E3 - 1) * (1 - F3)
-        var resultBookmakerWinBB = scriptStake * (scriptBackOdds - 1) * (1 - scriptBackComm)
-        document.getElementById("bookie-win-bbal").value = resultBookmakerWinBB.toFixed(2);
-
+        var resultBookmakerWinBB = ODDS_NS.g_stake * (scriptBackOdds - 1) * (1 - scriptBackComm)
         // Exchange Balance
         var resultBookmakerWinXB = resultLiability * -1
-        document.getElementById("bookie-win-xbal").value = resultBookmakerWinXB.toFixed(2);
-
         // Profit
         // K3-G3
         var resultBookmakerWinProfit = resultBookmakerWinBB + resultBookmakerWinXB
-        document.getElementById("bookie-win-profit").value = resultBookmakerWinProfit.toFixed(2);
+        $(row).find('span#bookmaker_position').html( resultBookmakerWinProfit.toFixed(2) );
+
 
         //
         // Exchange Win
         //
         // Exchange Balance
         // -1 * D3
-        var resultExchangeWinBB = -1 * scriptStake;
-        document.getElementById("exchange-win-bbal").value = resultExchangeWinBB.toFixed(2);
-
+        var resultExchangeWinBB = -1 * ODDS_NS.g_stake;
         // Exchange Balance
         // D4*(1-F4)
         var resultExchangeWinXB = resultLayBet * (1 - scriptLayComm)
-        document.getElementById("exchange-win-xbal").value = resultExchangeWinXB.toFixed(2);
-
         // Profit
         // K4-D3
         var resultExchangeWinProfit = resultExchangeWinXB + resultExchangeWinBB
-        document.getElementById("exchange-win-profit").value = resultExchangeWinProfit.toFixed(2);
+        console.log("resultExchangeWinProfit", resultExchangeWinProfit);
+        $(row).find('span#exchange_position').html( resultExchangeWinProfit.toFixed(2) );
 
     }
 
+    //
+    // Calculate optionSNR
+    //
+    if (ODDS_NS.g_betType == "optionSNR") {
+
+        // Calculate Lay bet
+        //(E3-1)/(E4-F4)*D3
+        var resultLayBet = (scriptBackOdds - 1) / (scriptLayOdds - scriptLayComm) * ODDS_NS.g_stake;
+        $(row).find('span#you_lay').html(resultLayBet.toFixed(2));
+
+        // Calculate Liability
+        // D4*(E4-1))
+        var resultLiability = resultLayBet * (scriptLayOdds - 1);
+        $(row).find('#liability').html(resultLiability.toFixed(2));
+
+        //
+        // Bookmaker Win
+        //
+        // Bookie Balance
+        // D3 * (E3 - 1) * (1 - F3)
+        var resultBookmakerWinBB = ODDS_NS.g_stake * (scriptBackOdds - 1) * (1 - scriptBackComm)
+        // Exchange Balance
+        var resultBookmakerWinXB = resultLiability * -1
+        // Profit
+        var resultBookmakerWinProfit = resultBookmakerWinBB + resultBookmakerWinXB
+        $(row).find('span#bookmaker_position').html(resultBookmakerWinProfit.toFixed(2));
+
+        //
+        // Exchange Win
+        //
+        // Exchange Balance
+        var resultExchangeWinBB = 0
+        // Exchange Balance
+        // D4*(1-F4)
+        var resultExchangeWinXB = resultLayBet * (1 - scriptLayComm)
+        // Profit
+        var resultExchangeWinProfit = resultExchangeWinXB
+        $(row).find('span#exchange_position').html(resultExchangeWinProfit.toFixed(2));
+
+    }
+
+    //
+    // Calculate optionSR
+    //
+    if (ODDS_NS.g_betType == "optionSR") {
+
+        // Calculate Lay bet
+        // E3/(E4-F4)*D3
+        var resultLayBet = scriptBackOdds / (scriptLayOdds - scriptLayComm) * ODDS_NS.g_stake;
+        $(row).find('span#you_lay').html(resultLayBet.toFixed(2));
+
+        // Calculate Liability
+        // D4*(E4-1))
+        var resultLiability = resultLayBet * (scriptLayOdds - 1);
+        $(row).find('#liability').html(resultLiability.toFixed(2));
+
+        //
+        // Bookmaker Win
+        //
+        // Bookie Balance
+        // D3*E3*(1-F3)
+        var resultBookmakerWinBB = ODDS_NS.g_stake * scriptBackOdds * (1 - scriptBackComm)
+        // Exchange Balance
+        var resultBookmakerWinXB = resultLiability * -1
+        // Profit
+        // K3+D3+K4
+        var resultBookmakerWinProfit = resultBookmakerWinBB + resultBookmakerWinXB + (1 * ODDS_NS.g_stake)
+        $(row).find('span#bookmaker_position').html(resultBookmakerWinProfit.toFixed(2));
+
+        //
+        // Exchange Win
+        //
+        // Exchange Balance
+        var resultExchangeWinBB = 0
+        // Exchange Balance
+        // D4*(1-F4)
+        var resultExchangeWinXB = resultLayBet * (1 - scriptLayComm)
+        // Profit
+        var resultExchangeWinProfit = resultExchangeWinXB
+        $(row).find('span#exchange_position').html(resultExchangeWinProfit.toFixed(2));
+
+    }
 }
 
 //
