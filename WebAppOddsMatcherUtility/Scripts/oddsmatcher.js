@@ -1,7 +1,7 @@
 ﻿// Declare namespace
 var ODDS_NS = ODDS_NS || {};
 
-ODDS_NS.g_stake = 10.00;
+ODDS_NS.g_stake = parseFloat(10.00);
 ODDS_NS.g_betType = null;
 
 ODDS_NS.init = function()
@@ -63,13 +63,12 @@ ODDS_NS.init = function()
     // call inline calculator with preset values
     ODDS_NS.inlineCalculate();
 
-
     //
     // Modal caclulator functions
     //
     $('#calculatorModal').on('shown.bs.modal', ODDS_NS.calculatorModalInit);
     $('#calculatorModal').on('hidden.bs.modal', ODDS_NS.clearModalCalculatorData);
-    $('#calculatorModal').on('keyup', ODDS_NS.modalCalculate);
+    $('#calculatorModal').on('change', ODDS_NS.modalCalculate);
 }
 
 ODDS_NS.submitOldFilterForm = function(selectObj) {
@@ -80,25 +79,27 @@ ODDS_NS.refreshPage = function() {
     location.reload();
 }
 
-ODDS_NS.inlineCalculate = function()
+ODDS_NS.inlineCalculate = function(event)
 {
     // get the stake value, default it to 10.00 if the field is cleared
-    ODDS_NS.g_stake = document.getElementById('stake_amount_val').value;
-    if (ODDS_NS.g_stake.length === 0)
-    {
-        // TODO: clear the calcualted fields on all table rows OR replace stake with a default value and re-calculate perhaps??
-        ODDS_NS.g_stake = 10.00;
+    var stake_val = document.getElementById('stake_amount_val').value;
+    // if you type a character for now default it to £10.00 - TODO: this will need to change!
+    if (isNaN(stake_val)) {
+        document.getElementById('stake_amount_val').value = '10.00';
+        stake_val = '10.00';
     }
 
+    // set the global variable, default to £10.00 if the field is empty
+    ODDS_NS.g_stake = stake_val.length === 0 ? parseFloat(10.00) : parseFloat(stake_val);
+    
     ODDS_NS.g_betType = document.querySelector('input[name="bet_type_selector"]:checked').value;
     $('#odds_table > tbody > tr').each( ODDS_NS.calc );
-           
         
 }
 
 ODDS_NS.calc = function( i, row )
 {
-    $(row).find('span#stake_entered').html( ODDS_NS.g_stake.toFixed(2) );
+    $(row).find('span#stake_entered').html( "£" + parseFloat(ODDS_NS.g_stake).toFixed(2) );
 
     var dataButton = $(row).find('td:last > button');
     var scriptBackOdds = dataButton.data('back-odds');
@@ -114,12 +115,12 @@ ODDS_NS.calc = function( i, row )
         // Calculate Lay bet
         // E3/(E4-F4)*D3
         var resultLayBet = scriptBackOdds / (scriptLayOdds - scriptLayComm) * ODDS_NS.g_stake;
-        $(row).find('span#you_lay').html( resultLayBet.toFixed(2) );
+        $(row).find('span#you_lay').html("£" + resultLayBet.toFixed(2));
 
         // Calculate Liability
         // D4*(E4-1))
         var resultLiability = resultLayBet * (scriptLayOdds - 1);
-        $(row).find('#liability').html(resultLiability.toFixed(2));
+        $(row).find('#liability').html("£" + resultLiability.toFixed(2));
 
         //
         // Bookmaker Win
@@ -132,7 +133,7 @@ ODDS_NS.calc = function( i, row )
         // Profit
         // K3-G3
         var resultBookmakerWinProfit = resultBookmakerWinBB + resultBookmakerWinXB
-        $(row).find('span#bookmaker_position').html( resultBookmakerWinProfit.toFixed(2) );
+        $(row).find('span#bookmaker_position').html("£" + resultBookmakerWinProfit.toFixed(2) );
 
 
         //
@@ -147,8 +148,7 @@ ODDS_NS.calc = function( i, row )
         // Profit
         // K4-D3
         var resultExchangeWinProfit = resultExchangeWinXB + resultExchangeWinBB
-        console.log("resultExchangeWinProfit", resultExchangeWinProfit);
-        $(row).find('span#exchange_position').html( resultExchangeWinProfit.toFixed(2) );
+        $(row).find('span#exchange_position').html("£" +  resultExchangeWinProfit.toFixed(2) );
 
     }
 
@@ -160,12 +160,12 @@ ODDS_NS.calc = function( i, row )
         // Calculate Lay bet
         //(E3-1)/(E4-F4)*D3
         var resultLayBet = (scriptBackOdds - 1) / (scriptLayOdds - scriptLayComm) * ODDS_NS.g_stake;
-        $(row).find('span#you_lay').html(resultLayBet.toFixed(2));
+        $(row).find('span#you_lay').html("£" + resultLayBet.toFixed(2));
 
         // Calculate Liability
         // D4*(E4-1))
         var resultLiability = resultLayBet * (scriptLayOdds - 1);
-        $(row).find('#liability').html(resultLiability.toFixed(2));
+        $(row).find('#liability').html("£" + resultLiability.toFixed(2));
 
         //
         // Bookmaker Win
@@ -177,7 +177,7 @@ ODDS_NS.calc = function( i, row )
         var resultBookmakerWinXB = resultLiability * -1
         // Profit
         var resultBookmakerWinProfit = resultBookmakerWinBB + resultBookmakerWinXB
-        $(row).find('span#bookmaker_position').html(resultBookmakerWinProfit.toFixed(2));
+        $(row).find('span#bookmaker_position').html("£" + resultBookmakerWinProfit.toFixed(2));
 
         //
         // Exchange Win
@@ -189,7 +189,7 @@ ODDS_NS.calc = function( i, row )
         var resultExchangeWinXB = resultLayBet * (1 - scriptLayComm)
         // Profit
         var resultExchangeWinProfit = resultExchangeWinXB
-        $(row).find('span#exchange_position').html(resultExchangeWinProfit.toFixed(2));
+        $(row).find('span#exchange_position').html("£" + resultExchangeWinProfit.toFixed(2));
 
     }
 
@@ -201,12 +201,12 @@ ODDS_NS.calc = function( i, row )
         // Calculate Lay bet
         // E3/(E4-F4)*D3
         var resultLayBet = scriptBackOdds / (scriptLayOdds - scriptLayComm) * ODDS_NS.g_stake;
-        $(row).find('span#you_lay').html(resultLayBet.toFixed(2));
+        $(row).find('span#you_lay').html("£" + resultLayBet.toFixed(2));
 
         // Calculate Liability
         // D4*(E4-1))
         var resultLiability = resultLayBet * (scriptLayOdds - 1);
-        $(row).find('#liability').html(resultLiability.toFixed(2));
+        $(row).find('#liability').html("£" + resultLiability.toFixed(2));
 
         //
         // Bookmaker Win
@@ -219,7 +219,7 @@ ODDS_NS.calc = function( i, row )
         // Profit
         // K3+D3+K4
         var resultBookmakerWinProfit = resultBookmakerWinBB + resultBookmakerWinXB + (1 * ODDS_NS.g_stake)
-        $(row).find('span#bookmaker_position').html(resultBookmakerWinProfit.toFixed(2));
+        $(row).find('span#bookmaker_position').html("£" + resultBookmakerWinProfit.toFixed(2));
 
         //
         // Exchange Win
@@ -231,9 +231,20 @@ ODDS_NS.calc = function( i, row )
         var resultExchangeWinXB = resultLayBet * (1 - scriptLayComm)
         // Profit
         var resultExchangeWinProfit = resultExchangeWinXB
-        $(row).find('span#exchange_position').html(resultExchangeWinProfit.toFixed(2));
+        $(row).find('span#exchange_position').html("£" + resultExchangeWinProfit.toFixed(2));
 
     }
+
+    // Colour the Bet Profit fields red when not a profit
+    if (resultBookmakerWinProfit < 0) 
+        $(row).find('span#bookmaker_position').css('color', 'red');
+    else
+        $(row).find('span#bookmaker_position').css('color', 'green');
+
+    if (resultExchangeWinProfit < 0)
+        $(row).find('span#exchange_position').css('color', 'red');
+    else
+        $(row).find('span#exchange_position').css('color', 'green');
 }
 
 //

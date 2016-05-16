@@ -22,7 +22,7 @@
             <div class="col-sm-6 col-md-3 text-center" style="margin-bottom: 10px;">
                 <div class="input-group input-group-sm">
                     <span class="input-group-addon" id="stake_amount">Stake Amount =</span>
-                    <input type="text" class="form-control" id="stake_amount_val" name="stake_amount_val" aria-describedby="stake_amount" onkeyup="ODDS_NS.inlineCalculate();"  placeholder="10.00">
+                    <input type="text" class="form-control" id="stake_amount_val" name="stake_amount_val" aria-describedby="stake_amount" onkeyup="ODDS_NS.inlineCalculate();" placeholder="10.00" pattern="^\d*(\.\d{2}$)?">
                 </div>
             </div>
             <div class="col-sm-6 col-md-3 text-center" style="margin-bottom: 10px;">
@@ -427,10 +427,10 @@
                                 </td>
 
                                 <td>
-                                    <div class="split-cell-top p-b-10 m-b-10">
+                                    <div class="split-cell-top-sm p-b-10 m-b-10">
                                         Back
                                     </div>
-                                    <div class="split-cell-bottom">
+                                    <div class="split-cell-bottom-sm">
                                         Lay
                                     </div>
                                 </td>
@@ -449,43 +449,36 @@
                                 <td>
                                     <div class="split-cell-top p-b-10 m-b-10">
                                         <span id="stake_entered" class="back-highlight">
-                                            <!-- control for showing bookmaker stake -->
-                                            <!-- needs to link to whatever typed in on the Stake field -->
-                                            -
+                                            <!-- same value as entered into the Stake field -->
                                         </span>
                                     </div>
                                     <div class="split-cell-bottom">
                                         <span id="you_lay" class="lay-highlight">
-                                            <!-- control for showing exchange stake -->
-                                            <!-- from the calculator -->
-                                            -
+                                            <!-- you lay from the calculator -->
                                         </span>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="split-cell-top p-b-10 m-b-10">
                                         <span id="bookmaker_position" class="back-highlight">
-                                            <!-- control for showing bookmaker position (bet profit bookmaker win)-->
-                                            £ a
+                                            <!-- bookmaker position (bet profit bookmaker win) from the calculator-->
                                         </span>
                                     </div>
                                     <div class="split-cell-bottom">
                                         <span id="exchange_position" class="lay-highlight">
-                                            <!-- control for showing exchange position (bet profit exchange win)-->
-                                            £ a
+                                            <!-- exchange position (bet profit exchange win) from the calculator -->
                                         </span>
                                     </div>
                                 </td>
-                                <td class="text-center vert-mid liability-highlight">
-                                    <div id="liability">
-                                        <!-- control for showing liability -->
-                                        £ b
+                                <td class="text-center fixed-cell">
+                                    <div id="liability" class="liability-highlight">
+                                        <!-- control for showing liability from the calculator -->
                                     </div>
                                 </td>
-                                <td class="text-center vert-mid availability-highlight">
-                                    <div id="availability">
-                                        <!-- control for showing availability -->
-                                        £ c
+                                <td class="text-center fixed-cell">
+                                    <div id="availability" class="availability-highlight">
+                                        <!-- control for showing availability from the server -->
+                                        £@Html.DisplayFor(modelItem => item.size)
                                     </div>
                                 </td>
 
@@ -495,10 +488,8 @@
                                 </td>
                                 <td>
                                     <span class="lay-highlight">@Html.DisplayFor(modelItem => item.lay)</span>
-                                </td>
-                                <td class="text-center">
-                                    @Html.DisplayFor(modelItem => item.size)
-                                </td> -->
+                                </td>-->
+
                                 <td>
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-xs btn-primary profit-btn" data-toggle="modal" data-target="#calculatorModal"
