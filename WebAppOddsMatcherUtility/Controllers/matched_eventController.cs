@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using WebAppOddsMatcherUtility.Models;
@@ -17,7 +18,7 @@ namespace WebAppOddsMatcherUtility.Controllers
         private oddsmatchingEntities db = new oddsmatchingEntities();
 
         // GET: matched_event
-        public ActionResult Index(int? page, string sortOrder, string currentFilter, string searchByBookmaker, string searchByMarketType, string searchByBack, string searchBySize)
+        public ActionResult Index(int? page, string sortOrder, string currentFilter, string searchByBookmaker, string searchByMarketType, string searchByBack, string searchBySize, string filterSport, string filterBookmaker, string filterMarket, string filterExchange, string filterMinRating, string filterMaxRating, string filterMinOdds, string filterMaxOdds, string filterMinAvail, string filterTimeLimit, string filterSearchText)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
@@ -35,9 +36,21 @@ namespace WebAppOddsMatcherUtility.Controllers
             ViewBag.MarketTypeFilter = searchByMarketType;
             ViewBag.BackFilter = searchByBack;
             ViewBag.SizeFilter = searchBySize;
+            ViewBag.SizeFilter = searchBySize;
+            ViewBag.filterSport = filterSport;
+            ViewBag.filterBookmaker = filterBookmaker;
+            ViewBag.filterMarket = filterMarket;
+            ViewBag.filterExchange = filterExchange;
+            ViewBag.filterMinRating = filterMinRating;
+            ViewBag.filterMaxRating = filterMaxRating;
+            ViewBag.filterMinOdds = filterMinOdds;
+            ViewBag.filterMaxOdds = filterMaxOdds;
+            ViewBag.filterMinAvail = filterMinAvail;
+            ViewBag.filterTimeLimit = filterTimeLimit;
+            ViewBag.filterSearchText = filterSearchText;
 
             if (searchByBookmaker == null)
-             {
+            {
                 searchByBookmaker = currentFilter;
             }
 
@@ -49,7 +62,7 @@ namespace WebAppOddsMatcherUtility.Controllers
 
             var matched = (from s in db.matched_event
                            orderby s.rating descending
-                           select s).Take(2500);
+                           select s).Take(3000);
 
             //
             // Filter
@@ -115,6 +128,144 @@ namespace WebAppOddsMatcherUtility.Controllers
                         break;
                 }
                 matched = matched.Where(s => s.size >= sizeFilter);
+            }
+
+            // Filter - Sport
+            if (!String.IsNullOrEmpty(filterSport))
+            {
+                if (filterSport.IndexOf(",") > 0)
+                {
+                    char[] delimiters = new char[] { ',' };
+                    string[] SportsNames = filterSport.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (string sport in SportsNames)
+                    {
+                        matched = matched.Where(s => s.sport.Contains(sport.ToLower()));
+                    }
+                }
+                else
+                {
+                    matched = matched.Where(s => s.sport.Contains(filterSport.ToLower()));
+                }
+            }
+
+            // Filter - Bookmakers
+            if (!String.IsNullOrEmpty(filterBookmaker))
+            {
+                if (filterBookmaker.IndexOf(",") > 0)
+                {
+                    char[] delimiters = new char[] { ',' };
+                    string[] BookmakerNames = filterBookmaker.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (string bookmaker in BookmakerNames)
+                    {
+                        matched = matched.Where(s => s.bookmaker.Contains(bookmaker));
+                    }
+                }
+                else
+                {
+                    matched = matched.Where(s => s.bookmaker.Contains(filterBookmaker));
+                }
+            }
+
+            // Filter - Market Types
+            if (!String.IsNullOrEmpty(filterMarket))
+            {
+                if (filterMarket.IndexOf(",") > 0)
+                {
+                    char[] delimiters = new char[] { ',' };
+                    string[] MarketNames = filterMarket.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (string market in MarketNames)
+                    {
+                        matched = matched.Where(s => s.marketName.Contains(market));
+                    }
+                }
+                else
+                {
+                    matched = matched.Where(s => s.marketName.Contains(filterMarket));
+                }
+            }
+
+
+            // Filter - Exchange
+            if (!String.IsNullOrEmpty(filterExchange))
+            {
+                if (filterExchange.IndexOf(",") > 0)
+                {
+                    char[] delimiters = new char[] { ',' };
+                    string[] ExchangeNames = filterExchange.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (string exchange in ExchangeNames)
+                    {
+                        matched = matched.Where(s => s.marketName.Contains(exchange.ToLower()));
+                    }
+                }
+                else
+                {
+                    matched = matched.Where(s => s.exchange.Contains(filterExchange.ToLower()));
+                }
+            }
+
+
+            // Filter MinRating
+            if (!String.IsNullOrEmpty(filterMinRating))
+            {
+                string strValue;
+                double dblNumber;
+                strValue = filterMinRating;
+                if (Double.TryParse(strValue, out dblNumber))
+                {
+                    matched = matched.Where(s => s.rating >= dblNumber);
+                }
+            }
+
+
+            // Filter MaxRating
+            if (!String.IsNullOrEmpty(filterMaxRating))
+            {
+                string strValue;
+                double dblNumber;
+                strValue = filterMaxRating;
+                if (Double.TryParse(strValue, out dblNumber))
+                {
+                    matched = matched.Where(s => s.rating <= dblNumber);
+                }
+            }
+
+
+            // Filter MinOdds
+            if (!String.IsNullOrEmpty(filterMinOdds))
+            {
+                string strValue;
+                double dblNumber;
+                strValue = filterMinOdds;
+                if (Double.TryParse(strValue, out dblNumber))
+                {
+                    matched = matched.Where(s => s.back >= dblNumber);
+                }
+            }
+
+
+            // Filter MaxOdds
+            if (!String.IsNullOrEmpty(filterMaxOdds))
+            {
+                string strValue;
+                double dblNumber;
+                strValue = filterMaxOdds;
+                if (Double.TryParse(strValue, out dblNumber))
+                {
+                    matched = matched.Where(s => s.back <= dblNumber);
+                }
+            }
+
+
+            // Filter MinAvail
+            if (!String.IsNullOrEmpty(filterMinAvail))
+            {
+                string strValue;
+                double dblNumber;
+                strValue = filterMinAvail;
+                if (Double.TryParse(strValue, out dblNumber))
+                {
+                    matched = matched.Where(s => s.size >= dblNumber);
+                }
             }
 
 
@@ -184,7 +335,7 @@ namespace WebAppOddsMatcherUtility.Controllers
                     matched = matched.OrderByDescending(s => s.size);
                     break;
                 default:
-                        matched = matched.OrderByDescending(s => s.rating);
+                    matched = matched.OrderByDescending(s => s.rating);
                     break;
             }
 
@@ -300,18 +451,19 @@ namespace WebAppOddsMatcherUtility.Controllers
 
         private void SetCollectionForFilter()
         {
+            // Build list of Bookmakers for filters
             var bookmakers = new List<string>();
             var bookmakerQuery = from s in db.matched_event
-                              orderby s.bookmaker_name
-                              select s.bookmaker_name;
+                                 orderby s.bookmaker_name
+                                 select s.bookmaker_name;
             bookmakers.AddRange(bookmakerQuery.Distinct());
             bookmakers.Sort();
-            
-            // ALEX test new filter components
-            ViewBag.FilterByBookie = bookmakers;
 
+            ViewBag.FilterByBookie = bookmakers;
             ViewBag.SearchByBookmaker = new SelectList(bookmakers);
 
+
+            // Build list of Back bets for filters
             var backs = new List<string>();
             backs.Add("Back bet 4+");
             backs.Add("Back bet 3+");
@@ -319,6 +471,8 @@ namespace WebAppOddsMatcherUtility.Controllers
             backs.Add("Back bet 1+");
             ViewBag.SearchByBack = new SelectList(backs);
 
+
+            // Build list of Size's for filters
             var sizes = new List<string>();
             sizes.Add("Size £2000+");
             sizes.Add("Size £1000+");
@@ -330,19 +484,20 @@ namespace WebAppOddsMatcherUtility.Controllers
             sizes.Add("Size £50+");
             ViewBag.SearchBySize = new SelectList(sizes);
 
+
+            // Build list of Market Types for filters
             var marketTypes = new List<string>();
             var marketTypeQuery = from s in db.matched_event
-                                 orderby s.marketName
-                                 select s.marketName;
+                                  orderby s.marketName
+                                  select s.marketName;
             marketTypes.AddRange(marketTypeQuery.Distinct());
             marketTypes.Sort();
 
-            // ALEX test new filter components
             ViewBag.FilterByMarketType = marketTypes;
-
             ViewBag.SearchByMarketType = new SelectList(marketTypes);
+
         }
 
-   }
+    }
 
 }
