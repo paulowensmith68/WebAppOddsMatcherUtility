@@ -14,9 +14,9 @@
         <div class="row">
             <div class="col-sm-12 col-md-6 text-center" style="margin-bottom: 10px;">
                 <div id="bet_type_selector_group" class="btn-group btn-group-sm" role="group" aria-label="bet type" data-toggle="buttons">
-                    <label class="btn btn-primary active"><input type="radio" name="bet_type_selector" id="bt_normal_qual" checked value="optionQualifier"> Normal Qualifier</label>
-                    <label class="btn btn-primary"><input type="radio" name="bet_type_selector" id="bt_free_no_return" value="optionSNR"> Free Bet Stake Not Returned (SNR)</label>
-                    <label class="btn btn-primary"><input type="radio" name="bet_type_selector" id="bt_free_bet_returned" value="optionSR"> Free Bet Stake Returned (SR)</label>
+                    <label class="btn btn-default active"><input type="radio" name="bet_type_selector" id="bt_normal_qual" checked value="optionQualifier"> Normal Qualifier</label>
+                    <label class="btn btn-default"><input type="radio" name="bet_type_selector" id="bt_free_no_return" value="optionSNR"> Free Bet Stake Not Returned (SNR)</label>
+                    <label class="btn btn-default"><input type="radio" name="bet_type_selector" id="bt_free_bet_returned" value="optionSR"> Free Bet Stake Returned (SR)</label>
                 </div>
             </div>
             <div class="col-sm-6 col-md-3 text-center" style="margin-bottom: 10px;">
@@ -46,8 +46,8 @@
             </div>
             <div class="col-md-3">
                 <div id="show_selector_group" class="btn-group btn-group-sm" role="group" aria-label="show type" data-toggle="buttons">
-                    <label class="btn btn-primary active"><input type="radio" id="bt_show_arbs" name="show_selector" checked> Show Arbs 100+</label>
-                    <label class="btn btn-primary"><input type="radio" id="bt_show_availability" name="show_selector"> Show Availability Only</label>
+                    <label class="btn btn-default active"><input type="radio" id="bt_show_arbs" name="show_selector" checked> Show Arbs 100+</label>
+                    <label class="btn btn-default"><input type="radio" id="bt_show_availability" name="show_selector"> Show Availability Only</label>
                 </div>
             </div>
             <div class="col-md-3">
@@ -503,7 +503,7 @@
                                             data-exchange-name="Betfair Exchange"
                                             data-market-name="@Html.DisplayFor(modelItem => item.marketName)"
                                             data-bet-name="@Html.DisplayFor(modelItem => item.betName)">
-                                        <span class="glyphicon glyphicon-gbp"></span>
+                                        <span class="glyphicon glyphicon-credit-card"></span>
                                     </button>
                                 </td>
                             </tr>
