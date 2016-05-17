@@ -5,6 +5,7 @@
 <link href="~/Content/ion.rangeSlider.css" rel="stylesheet" type="text/css" />
 <link href="~/Content/ion.rangeSlider.skinHTML5.css" rel="stylesheet" type="text/css" />
 <link href="~/Content/Custom.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Matched";
@@ -51,8 +52,8 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <button type="button" class="btn btn-danger btn-sm pull-right m-l-10" onclick="ODDS.refreshPage()"><span class="glyphicon glyphicon-refresh"></span> Refresh</button>
-                <button type="button" class="btn btn-success btn-sm pull-right" data-toggle="collapse" data-target="#filters_section"><span class="glyphicon glyphicon-filter"></span> Filters</button>
+                <button type="button" class="btn btn-danger btn-sm pull-right m-l-10" onclick="ODDS.refreshPage()"><span class="fa fa-refresh"></span> Refresh</button>
+                <button type="button" class="btn btn-success btn-sm pull-right" data-toggle="collapse" data-target="#filters_section"><span class="fa fa-filter"></span> Filters</button>
             </div>
         </div>
     </div>
@@ -311,14 +312,14 @@
         <div class="row m-t-10">
             <div class="col-sm-8 col-md-8">
                 <div class="input-group">
-                    <span class="input-group-addon" id="search-addon"><span class="glyphicon glyphicon-search"></span></span>
+                    <span class="input-group-addon" id="search-addon"><span class="fa fa-search"></span></span>
                     <input id="search_filter" name="search_filter" aria-describedby="search-addon" class="form-control" placeholder="Search by team name, horse name, league name, output (i.e. 0-0)" />
                 </div>
             </div>
             <div class="col-sm-4 col-md-4">
-                <button class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Apply</button>
+                <button class="btn btn-primary"><span class="fa fa-check"></span> Apply</button>
                 <div class="pull-right">
-                    <button class="btn btn-default"><span class="glyphicon glyphicon-minus-sign"></span> Clear Filters</button>
+                    <button class="btn btn-default"><span class="fa fa-minus-circle"></span> Clear Filters</button>
                 </div>
             </div>
         </div>
@@ -492,7 +493,7 @@
 
                                 <td>
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-xs btn-primary profit-btn" data-toggle="modal" data-target="#calculatorModal"
+                                    <button type="button" class="btn btn-primary profit-btn" data-toggle="modal" data-target="#calculatorModal"
                                             data-event="@Html.DisplayFor(modelItem => item.details)"
                                             data-event-date="@Html.ValueFor(modelItem => item.eventDate, "{0:dd/MM/yyyy HH:mm}")"
                                             data-back-odds=@Html.DisplayFor(modelItem => item.back)
@@ -503,7 +504,7 @@
                                             data-exchange-name="Betfair Exchange"
                                             data-market-name="@Html.DisplayFor(modelItem => item.marketName)"
                                             data-bet-name="@Html.DisplayFor(modelItem => item.betName)">
-                                        <span class="glyphicon glyphicon-gbp"></span>
+                                        <span class="fa fa-calculator fa-lg"></span>
                                     </button>
                                 </td>
                             </tr>
