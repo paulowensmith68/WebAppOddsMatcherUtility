@@ -15,9 +15,9 @@
         <div class="row">
             <div class="col-sm-12 col-md-6 text-center" style="margin-bottom: 10px;">
                 <div id="bet_type_selector_group" class="btn-group btn-group-sm" role="group" aria-label="bet type" data-toggle="buttons">
-                    <label class="btn btn-primary active"><input type="radio" name="bet_type_selector" id="bt_normal_qual" checked value="optionQualifier"> Normal Qualifier</label>
-                    <label class="btn btn-primary"><input type="radio" name="bet_type_selector" id="bt_free_no_return" value="optionSNR"> Free Bet Stake Not Returned (SNR)</label>
-                    <label class="btn btn-primary"><input type="radio" name="bet_type_selector" id="bt_free_bet_returned" value="optionSR"> Free Bet Stake Returned (SR)</label>
+                    <label class="btn btn-default active"><input type="radio" name="bet_type_selector" id="bt_normal_qual" checked value="optionQualifier"> Normal Qualifier</label>
+                    <label class="btn btn-default"><input type="radio" name="bet_type_selector" id="bt_free_no_return" value="optionSNR"> Free Bet Stake Not Returned (SNR)</label>
+                    <label class="btn btn-default"><input type="radio" name="bet_type_selector" id="bt_free_bet_returned" value="optionSR"> Free Bet Stake Returned (SR)</label>
                 </div>
             </div>
             <div class="col-sm-6 col-md-3 text-center" style="margin-bottom: 10px;">
@@ -47,8 +47,8 @@
             </div>
             <div class="col-md-3">
                 <div id="show_selector_group" class="btn-group btn-group-sm" role="group" aria-label="show type" data-toggle="buttons">
-                    <label class="btn btn-primary active"><input type="radio" id="bt_show_arbs" name="show_selector" checked> Show Arbs 100+</label>
-                    <label class="btn btn-primary"><input type="radio" id="bt_show_availability" name="show_selector"> Show Availability Only</label>
+                    <label class="btn btn-default active"><input type="radio" id="bt_show_arbs" name="show_selector" checked> Show Arbs 100+</label>
+                    <label class="btn btn-default"><input type="radio" id="bt_show_availability" name="show_selector"> Show Availability Only</label>
                 </div>
             </div>
             <div class="col-md-3">
@@ -74,17 +74,17 @@
                         <ul class="list-group">
                             <li class="list-group-item">
                                 <div class="checkbox">
-                                    <input type="checkbox" class="cb_sport" id="cb_sport_one" />
+                                    <input type="checkbox" class="cb_sport" id="cb_football" />
                                     <label for="checkbox">
-                                        Sport 1
+                                        Football
                                     </label>
                                 </div>
                             </li>
                             <li class="list-group-item">
                                 <div class="checkbox">
-                                    <input type="checkbox" class="cb_sport" id="cb_sport_two" />
+                                    <input type="checkbox" class="cb_sport" id="cb_horse" />
                                     <label for="checkbox">
-                                        Sport 2
+                                        Horse Racing
                                     </label>
                                 </div>
                             </li>
@@ -172,33 +172,9 @@
                         <ul class="list-group">
                             <li class="list-group-item">
                                 <div class="checkbox">
-                                    <input type="checkbox" class="cb_exchange" id="cb_exchange_one" />
+                                    <input type="checkbox" class="cb_exchange" id="cb_exchange_betfair" />
                                     <label for="checkbox">
-                                        Exchange 1
-                                    </label>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="checkbox">
-                                    <input type="checkbox" class="cb_exchange" id="cb_exchange_two" />
-                                    <label for="checkbox">
-                                        Exchange 2
-                                    </label>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="checkbox">
-                                    <input type="checkbox" class="cb_exchange" id="cb_exchange_three" />
-                                    <label for="checkbox">
-                                        Exchange 3
-                                    </label>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="checkbox">
-                                    <input type="checkbox" class="cb_exchange" id="cb_exchange_four" />
-                                    <label for="checkbox">
-                                        Exchange 4
+                                        Betfair
                                     </label>
                                 </div>
                             </li>
@@ -334,37 +310,37 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.ActionLink("Event Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
+                                @Html.ActionLink("Event Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter, filterSport = ViewBag.filterSport, filterBookmaker = ViewBag.filterBookmaker, filterMarket = ViewBag.filterMarket, filterExchange = ViewBag.filterExchange, filterMinRating = ViewBag.filterMinRating, filterMaxRating = ViewBag.filterMaxRating, filterMinOdds = ViewBag.filterMinOdds, filterMaxOdds = ViewBag.filterMaxOdds, filterMinAvail = ViewBag.filterMinAvail, filterTimeLimit = ViewBag.filterTimeLimit, filterSearchText = ViewBag.filterSearchText })
                             </th>
                             <th>
                                 Sport
                             </th>
                             <th>
-                                @Html.ActionLink("Details", "Index", new { sortOrder = ViewBag.DetailsSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
+                                @Html.ActionLink("Details", "Index", new { sortOrder = ViewBag.DetailsSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter, filterSport = ViewBag.filterSport, filterBookmaker = ViewBag.filterBookmaker, filterMarket = ViewBag.filterMarket, filterExchange = ViewBag.filterExchange, filterMinRating = ViewBag.filterMinRating, filterMaxRating = ViewBag.filterMaxRating, filterMinOdds = ViewBag.filterMinOdds, filterMaxOdds = ViewBag.filterMaxOdds, filterMinAvail = ViewBag.filterMinAvail, filterTimeLimit = ViewBag.filterTimeLimit, filterSearchText = ViewBag.filterSearchText })
                             </th>
                             <th>
-                                @Html.ActionLink("Bet", "Index", new { sortOrder = ViewBag.BetSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
+                                @Html.ActionLink("Bet", "Index", new { sortOrder = ViewBag.BetSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter, filterSport = ViewBag.filterSport, filterBookmaker = ViewBag.filterBookmaker, filterMarket = ViewBag.filterMarket, filterExchange = ViewBag.filterExchange, filterMinRating = ViewBag.filterMinRating, filterMaxRating = ViewBag.filterMaxRating, filterMinOdds = ViewBag.filterMinOdds, filterMaxOdds = ViewBag.filterMaxOdds, filterMinAvail = ViewBag.filterMinAvail, filterTimeLimit = ViewBag.filterTimeLimit, filterSearchText = ViewBag.filterSearchText })
                             </th>
                             <th>
-                                @Html.ActionLink("Market", "Index", new { sortOrder = ViewBag.MarketSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
+                                @Html.ActionLink("Market", "Index", new { sortOrder = ViewBag.MarketSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter, filterSport = ViewBag.filterSport, filterBookmaker = ViewBag.filterBookmaker, filterMarket = ViewBag.filterMarket, filterExchange = ViewBag.filterExchange, filterMinRating = ViewBag.filterMinRating, filterMaxRating = ViewBag.filterMaxRating, filterMinOdds = ViewBag.filterMinOdds, filterMaxOdds = ViewBag.filterMaxOdds, filterMinAvail = ViewBag.filterMinAvail, filterTimeLimit = ViewBag.filterTimeLimit, filterSearchText = ViewBag.filterSearchText })
                             </th>
                             <th>
-                                @Html.ActionLink("Rating", "Index", new { sortOrder = ViewBag.RatingSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
-                            </th>
-                            <th>
-                                <div class="split-hcell">
-                                    @Html.ActionLink("Bookmaker", "Index", new { sortOrder = ViewBag.BookmakerSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
-                                </div>
-                                <div>
-                                    @Html.ActionLink("Exchange", "Index", new { sortOrder = ViewBag.ExchangeSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
-                                </div>
+                                @Html.ActionLink("Rating", "Index", new { sortOrder = ViewBag.RatingSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter, filterSport = ViewBag.filterSport, filterBookmaker = ViewBag.filterBookmaker, filterMarket = ViewBag.filterMarket, filterExchange = ViewBag.filterExchange, filterMinRating = ViewBag.filterMinRating, filterMaxRating = ViewBag.filterMaxRating, filterMinOdds = ViewBag.filterMinOdds, filterMaxOdds = ViewBag.filterMaxOdds, filterMinAvail = ViewBag.filterMinAvail, filterTimeLimit = ViewBag.filterTimeLimit, filterSearchText = ViewBag.filterSearchText })
                             </th>
                             <th>
                                 <div class="split-hcell">
-                                    @Html.ActionLink("Back", "Index", new { sortOrder = ViewBag.BackSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
+                                    @Html.ActionLink("Bookmaker", "Index", new { sortOrder = ViewBag.BookmakerSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter, filterSport = ViewBag.filterSport, filterBookmaker = ViewBag.filterBookmaker, filterMarket = ViewBag.filterMarket, filterExchange = ViewBag.filterExchange, filterMinRating = ViewBag.filterMinRating, filterMaxRating = ViewBag.filterMaxRating, filterMinOdds = ViewBag.filterMinOdds, filterMaxOdds = ViewBag.filterMaxOdds, filterMinAvail = ViewBag.filterMinAvail, filterTimeLimit = ViewBag.filterTimeLimit, filterSearchText = ViewBag.filterSearchText })
                                 </div>
                                 <div>
-                                    @Html.ActionLink("Lay", "Index", new { sortOrder = ViewBag.LaySortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
+                                    @Html.ActionLink("Exchange", "Index", new { sortOrder = ViewBag.ExchangeSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter, filterSport = ViewBag.filterSport, filterBookmaker = ViewBag.filterBookmaker, filterMarket = ViewBag.filterMarket, filterExchange = ViewBag.filterExchange, filterMinRating = ViewBag.filterMinRating, filterMaxRating = ViewBag.filterMaxRating, filterMinOdds = ViewBag.filterMinOdds, filterMaxOdds = ViewBag.filterMaxOdds, filterMinAvail = ViewBag.filterMinAvail, filterTimeLimit = ViewBag.filterTimeLimit, filterSearchText = ViewBag.filterSearchText })
+                                </div>
+                            </th>
+                            <th>
+                                <div class="split-hcell">
+                                    @Html.ActionLink("Back", "Index", new { sortOrder = ViewBag.BackSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter, filterSport = ViewBag.filterSport, filterBookmaker = ViewBag.filterBookmaker, filterMarket = ViewBag.filterMarket, filterExchange = ViewBag.filterExchange, filterMinRating = ViewBag.filterMinRating, filterMaxRating = ViewBag.filterMaxRating, filterMinOdds = ViewBag.filterMinOdds, filterMaxOdds = ViewBag.filterMaxOdds, filterMinAvail = ViewBag.filterMinAvail, filterTimeLimit = ViewBag.filterTimeLimit, filterSearchText = ViewBag.filterSearchText })
+                                </div>
+                                <div>
+                                    @Html.ActionLink("Lay", "Index", new { sortOrder = ViewBag.LaySortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter, filterSport = ViewBag.filterSport, filterBookmaker = ViewBag.filterBookmaker, filterMarket = ViewBag.filterMarket, filterExchange = ViewBag.filterExchange, filterMinRating = ViewBag.filterMinRating, filterMaxRating = ViewBag.filterMaxRating, filterMinOdds = ViewBag.filterMinOdds, filterMaxOdds = ViewBag.filterMaxOdds, filterMinAvail = ViewBag.filterMinAvail, filterTimeLimit = ViewBag.filterTimeLimit, filterSearchText = ViewBag.filterSearchText })
                                 </div>
                             </th>
                             <th>
@@ -380,19 +356,19 @@
                                 Liability
                             </th>
                             <th>
-                                Avail.
+                                Availability
                             </th>
                             <!--<th>
-                                @Html.ActionLink("Back", "Index", new { sortOrder = ViewBag.BackSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
+                                @Html.ActionLink("Back", "Index", new { sortOrder = ViewBag.BackSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter, filterSport = ViewBag.filterSport, filterBookmaker = ViewBag.filterBookmaker, filterMarket = ViewBag.filterMarket, filterExchange = ViewBag.filterExchange, filterMinRating = ViewBag.filterMinRating, filterMaxRating = ViewBag.filterMaxRating, filterMinOdds = ViewBag.filterMinOdds, filterMaxOdds = ViewBag.filterMaxOdds, filterMinAvail = ViewBag.filterMinAvail, filterTimeLimit = ViewBag.filterTimeLimit, filterSearchText = ViewBag.filterSearchText })
                             </th>
                             <th>
-                                @Html.ActionLink("Lay", "Index", new { sortOrder = ViewBag.LaySortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
+                                @Html.ActionLink("Lay", "Index", new { sortOrder = ViewBag.LaySortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter, filterSport = ViewBag.filterSport, filterBookmaker = ViewBag.filterBookmaker, filterMarket = ViewBag.filterMarket, filterExchange = ViewBag.filterExchange, filterMinRating = ViewBag.filterMinRating, filterMaxRating = ViewBag.filterMaxRating, filterMinOdds = ViewBag.filterMinOdds, filterMaxOdds = ViewBag.filterMaxOdds, filterMinAvail = ViewBag.filterMinAvail, filterTimeLimit = ViewBag.filterTimeLimit, filterSearchText = ViewBag.filterSearchText })
                             </th>
                             <th>
-                                @Html.ActionLink("Size", "Index", new { sortOrder = ViewBag.SizeSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter })
+                                @Html.ActionLink("Size", "Index", new { sortOrder = ViewBag.SizeSortParm, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter, filterSport = ViewBag.filterSport, filterBookmaker = ViewBag.filterBookmaker, filterMarket = ViewBag.filterMarket, filterExchange = ViewBag.filterExchange, filterMinRating = ViewBag.filterMinRating, filterMaxRating = ViewBag.filterMaxRating, filterMinOdds = ViewBag.filterMinOdds, filterMaxOdds = ViewBag.filterMaxOdds, filterMinAvail = ViewBag.filterMinAvail, filterTimeLimit = ViewBag.filterTimeLimit, filterSearchText = ViewBag.filterSearchText })
                             </th> -->
                             <th>
-                                Profit
+                                Calculator
                             </th>
                         </tr>
                     </thead>
@@ -516,7 +492,7 @@
                 <div id='Paging' class="text-center">
                     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter }))
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, searchByBookmaker = ViewBag.BookmakerFilter, searchByMarketType = ViewBag.MarketTypeFilter, searchByBack = ViewBag.BackFilter, searchBySize = ViewBag.SizeFilter, filterSport = ViewBag.filterSport, filterBookmaker = ViewBag.filterBookmaker, filterMarket = ViewBag.filterMarket, filterExchange = ViewBag.filterExchange, filterMinRating = ViewBag.filterMinRating, filterMaxRating = ViewBag.filterMaxRating, filterMinOdds = ViewBag.filterMinOdds, filterMaxOdds = ViewBag.filterMaxOdds, filterMinAvail = ViewBag.filterMinAvail, filterTimeLimit = ViewBag.filterTimeLimit, filterSearchText = ViewBag.filterSearchText }))
                 </div>
             </div>
         </div>
