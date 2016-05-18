@@ -18,7 +18,7 @@ namespace WebAppOddsMatcherUtility.Controllers
         private oddsmatchingEntities db = new oddsmatchingEntities();
 
         // GET: matched_event
-        public ActionResult Index(int? page, string sortOrder, string currentFilter, string searchByBookmaker, string searchByMarketType, string searchByBack, string searchBySize, string filterSport, string filterBookmaker, string filterMarket, string filterExchange, string filterMinRating, string filterMaxRating, string filterMinOdds, string filterMaxOdds, string filterMinAvail, string filterTimeLimit, string filterSearchText)
+        public ActionResult Index(int? page, string sortOrder, string currentFilter, string searchByBookmaker, string searchByMarketType, string searchByBack, string searchBySize, string[] filterSport, string[] filterBookmaker, string[] filterMarket, string[] filterExchange, string filterMinRating, string filterMaxRating, string filterMinOdds, string filterMaxOdds, string filterMinAvail, string filterTimeLimit, string filterSearchText)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
@@ -35,7 +35,6 @@ namespace WebAppOddsMatcherUtility.Controllers
             ViewBag.CurrentFilter = searchByBookmaker;
             ViewBag.MarketTypeFilter = searchByMarketType;
             ViewBag.BackFilter = searchByBack;
-            ViewBag.SizeFilter = searchBySize;
             ViewBag.SizeFilter = searchBySize;
             ViewBag.filterSport = filterSport;
             ViewBag.filterBookmaker = filterBookmaker;
@@ -131,77 +130,112 @@ namespace WebAppOddsMatcherUtility.Controllers
             }
 
             // Filter - Sport
-            if (!String.IsNullOrEmpty(filterSport))
+            if (filterSport != null)
             {
-                if (filterSport.IndexOf(",") > 0)
+                foreach(string sport in filterSport)
                 {
-                    char[] delimiters = new char[] { ',' };
-                    string[] SportsNames = filterSport.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
-                    foreach (string sport in SportsNames)
-                    {
-                        matched = matched.Where(s => s.sport.Contains(sport.ToLower()));
-                    }
-                }
-                else
-                {
-                    matched = matched.Where(s => s.sport.Contains(filterSport.ToLower()));
+                    string filterString = HttpUtility.UrlDecode(sport).ToLower();
+                    matched = matched.Where(s => s.sport.Contains(filterString));
                 }
             }
+
+            //if (!String.IsNullOrEmpty(filterSport))
+            //{
+            //   if (filterSport.IndexOf(",") > 0)
+            //    {
+            //        char[] delimiters = new char[] { ',' };
+            //        string[] SportsNames = filterSport.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+            //        foreach (string sport in SportsNames)
+            //        {
+            //            matched = matched.Where(s => s.sport.Contains(sport.ToLower()));
+            //        }
+            //    }
+            //    else
+            //    {
+            //        matched = matched.Where(s => s.sport.Contains(filterSport.ToLower()));
+            //    }
+            //}
 
             // Filter - Bookmakers
-            if (!String.IsNullOrEmpty(filterBookmaker))
+            if (filterBookmaker != null && filterBookmaker.Length > 0)
             {
-                if (filterBookmaker.IndexOf(",") > 0)
+                foreach (string bookmaker in filterBookmaker)
                 {
-                    char[] delimiters = new char[] { ',' };
-                    string[] BookmakerNames = filterBookmaker.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
-                    foreach (string bookmaker in BookmakerNames)
-                    {
-                        matched = matched.Where(s => s.bookmaker.Contains(bookmaker));
-                    }
-                }
-                else
-                {
-                    matched = matched.Where(s => s.bookmaker.Contains(filterBookmaker));
+                    string filterString = HttpUtility.UrlDecode(bookmaker).ToLower();
+                    matched = matched.Where(s => s.bookmaker_name.Contains(filterString));
                 }
             }
 
+            //if (!String.IsNullOrEmpty(filterBookmaker))
+            //{
+            //    if (filterBookmaker.IndexOf(",") > 0)
+            //    {
+            //        char[] delimiters = new char[] { ',' };
+            //        string[] BookmakerNames = filterBookmaker.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+            //        foreach (string bookmaker in BookmakerNames)
+            //        {
+            //            matched = matched.Where(s => s.bookmaker.Contains(bookmaker));
+            //        }
+            //    }
+            //    else
+            //    {
+            //        matched = matched.Where(s => s.bookmaker.Contains(filterBookmaker));
+            //    }
+            //}
+
             // Filter - Market Types
-            if (!String.IsNullOrEmpty(filterMarket))
+            if (filterMarket != null && filterMarket.Length > 0)
             {
-                if (filterMarket.IndexOf(",") > 0)
+                foreach (string market in filterMarket)
                 {
-                    char[] delimiters = new char[] { ',' };
-                    string[] MarketNames = filterMarket.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
-                    foreach (string market in MarketNames)
-                    {
-                        matched = matched.Where(s => s.marketName.Contains(market));
-                    }
-                }
-                else
-                {
-                    matched = matched.Where(s => s.marketName.Contains(filterMarket));
+                    string filterString = HttpUtility.UrlDecode(market).ToLower();
+                    matched = matched.Where(s => s.marketName.Contains(filterString));
                 }
             }
+            //if (!String.IsNullOrEmpty(filterMarket))
+            //{
+            //    if (filterMarket.IndexOf(",") > 0)
+            //   {
+            //        char[] delimiters = new char[] { ',' };
+            //        string[] MarketNames = filterMarket.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+            //        foreach (string market in MarketNames)
+            //        {
+            //            matched = matched.Where(s => s.marketName.Contains(market));
+            //        }
+            //    }
+            //    else
+            //    {
+            //        matched = matched.Where(s => s.marketName.Contains(filterMarket));
+            //    }
+            //}
 
 
             // Filter - Exchange
-            if (!String.IsNullOrEmpty(filterExchange))
+            if (filterExchange != null && filterExchange.Length > 0)
             {
-                if (filterExchange.IndexOf(",") > 0)
+                foreach (string exchange in filterExchange)
                 {
-                    char[] delimiters = new char[] { ',' };
-                    string[] ExchangeNames = filterExchange.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
-                    foreach (string exchange in ExchangeNames)
-                    {
-                        matched = matched.Where(s => s.marketName.Contains(exchange.ToLower()));
-                    }
-                }
-                else
-                {
-                    matched = matched.Where(s => s.exchange.Contains(filterExchange.ToLower()));
+                    string filterString = HttpUtility.UrlDecode(exchange).ToLower();
+                    matched = matched.Where(s => s.marketName.Contains(filterString));
                 }
             }
+
+            //if (!String.IsNullOrEmpty(filterExchange))
+            //{
+            //    if (filterExchange.IndexOf(",") > 0)
+            //    {
+            //        char[] delimiters = new char[] { ',' };
+            //        string[] ExchangeNames = filterExchange.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+            //        foreach (string exchange in ExchangeNames)
+            //        {
+            //            matched = matched.Where(s => s.marketName.Contains(exchange.ToLower()));
+            //       }
+            //    }
+            //    else
+            //    {
+            //        matched = matched.Where(s => s.exchange.Contains(filterExchange.ToLower()));
+            //   }
+            //}
 
 
             // Filter MinRating

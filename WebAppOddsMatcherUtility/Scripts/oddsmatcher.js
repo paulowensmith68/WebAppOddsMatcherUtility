@@ -7,15 +7,25 @@ ODDS_NS.g_betType = null;
 ODDS_NS.init = function()
 {
     $('[data-toggle="popover"]').popover();
-    // filter check boxes initally all set to ticked
-    $('#cb_sport_all').prop('checked', true);
-    $('.cb_sport').prop('checked', true);
-    $('#cb_market_all').prop('checked', true);
-    $('.cb_market').prop('checked', true);
-    $('#cb_bookmaker_all').prop('checked', true);
-    $('.cb_bookmaker').prop('checked', true);
-    $('#cb_exchange_all').prop('checked', true);
-    $('.cb_exchange').prop('checked', true);
+    // filter check boxes initally all set to ticked ONLY if there is no query string
+    //if (window.location.search.length > 0)
+    //{
+        //TODO: populate the filters
+    //    console.log("We got filters to apply to the UI");
+    //}
+    //else
+    //{
+        // first time onto the page so no filters have been applied, check em all
+    //    $('#cb_sport_all').prop('checked', true);
+    //    $('.cb_sport').prop('checked', true);
+    //    $('#cb_market_all').prop('checked', true);
+    //    $('.cb_market').prop('checked', true);
+    //    $('#cb_bookmaker_all').prop('checked', true);
+    //    $('.cb_bookmaker').prop('checked', true);
+    //    $('#cb_exchange_all').prop('checked', true);
+    //    $('.cb_exchange').prop('checked', true);
+    //}
+    
 
     $("#timeframe").ionRangeSlider({
         grid: true,
@@ -36,9 +46,10 @@ ODDS_NS.init = function()
     $('#cb_bookmaker_all').click(function () {
         $('.cb_bookmaker').prop('checked', this.checked);
     });
-    $('#cb_exchange_all').click(function () {
-        $('.cb_exchange').prop('checked', this.checked);
-    });
+    // for now disable this as we only have one exchange
+    //$('#cb_exchange_all').click(function () {
+    //    $('.cb_exchange').prop('checked', this.checked);
+    //});
 
     $('.cb_sport').change(function () {
         var check = ($('.cb_sport').filter(":checked").length == $('.cb_sport').length);
@@ -52,10 +63,11 @@ ODDS_NS.init = function()
         var check = ($('.cb_bookmaker').filter(":checked").length == $('.cb_bookmaker').length);
         $('#cb_bookmaker_all').prop('checked', check);
     });
-    $('.cb_exchange').change(function () {
-        var check = ($('.cb_exchange').filter(":checked").length == $('.cb_exchange').length);
-        $('#cb_exchange_all').prop('checked', check);
-    });
+    // for now disable this as we only have one exchange
+    //$('.cb_exchange').change(function () {
+    //    var check = ($('.cb_exchange').filter(":checked").length == $('.cb_exchange').length);
+    //    $('#cb_exchange_all').prop('checked', check);
+    //});
 
     // change handler for the bet type radio buttons
     $('input[name="bet_type_selector"]').on('change', ODDS_NS.inlineCalculate);
@@ -71,8 +83,14 @@ ODDS_NS.init = function()
     $('#calculatorModal').on('change', ODDS_NS.modalCalculate);
 }
 
+// TODO: deprecate this method
 ODDS_NS.submitOldFilterForm = function(selectObj) {
     selectObj.form.submit();
+}
+
+ODDS_NS.submitFilterForm = function (applyBtn) {
+    //TODO: may need some logic in here before sending form to server
+    applyBtn.form.submit();
 }
 
 ODDS_NS.refreshPage = function() {

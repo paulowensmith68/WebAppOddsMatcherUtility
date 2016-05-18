@@ -11,6 +11,8 @@
     ViewBag.Title = "Matched";
 }
 
+@using (Html.BeginForm("Index", "matched_event", FormMethod.Get, new { @id="frm_filter"}))
+{
     <div id="control_area">
         <div class="row">
             <div class="col-sm-12 col-md-6 text-center" style="margin-bottom: 10px;">
@@ -36,13 +38,12 @@
         <div class="row m-t-10">
             <div class="col-md-6">
                 <div class="input-group input-group-sm">
-                    @using (Html.BeginForm("Index", "matched_event", FormMethod.Get))
-                    {
-                    <span class="old-filters">@Html.DropDownList("SearchByBookmaker", null, "All bookmakers", new { @class = "form-control input-sm", @onchange="ODDS_NS.submitOldFilterForm(this);" })</span>
-                    <span class="old-filters">@Html.DropDownList("SearchByMarketType", null, "All markets", new { @class = "form-control input-sm", @onchange = "ODDS_NS.submitOldFilterForm(this);" })</span>
-                    <span class="old-filters">@Html.DropDownList("SearchByBack", null, "All back bets", new { @class = "form-control input-sm", @onchange = "ODDS_NS.submitOldFilterForm(this);" })</span>
-                    <span class="old-filters">@Html.DropDownList("SearchBySize", null, "All sizes", new { @class = "form-control input-sm", @onchange = "ODDS_NS.submitOldFilterForm(this);" })</span>
-                    }
+                    <!-- (with a at on the front) onchange="ODDS_NS.submitOldFilterForm(this);" -->
+                    <span class="old-filters">@Html.DropDownList("SearchByBookmaker", null, "All bookmakers", new { @class = "form-control input-sm" })</span>
+                    <span class="old-filters">@Html.DropDownList("SearchByMarketType", null, "All markets", new { @class = "form-control input-sm" })</span>
+                    <span class="old-filters">@Html.DropDownList("SearchByBack", null, "All back bets", new { @class = "form-control input-sm" })</span>
+                    <span class="old-filters">@Html.DropDownList("SearchBySize", null, "All sizes", new { @class = "form-control input-sm" })</span>
+
                 </div>
             </div>
             <div class="col-md-3">
@@ -74,7 +75,7 @@
                         <ul class="list-group">
                             <li class="list-group-item">
                                 <div class="checkbox">
-                                    <input type="checkbox" class="cb_sport" id="cb_football" />
+                                    <input type="checkbox" class="cb_sport" name="filterSport" value="football"/>
                                     <label for="checkbox">
                                         Football
                                     </label>
@@ -82,7 +83,7 @@
                             </li>
                             <li class="list-group-item">
                                 <div class="checkbox">
-                                    <input type="checkbox" class="cb_sport" id="cb_horse" />
+                                    <input type="checkbox" class="cb_sport" name="filterSport" value="horse" />
                                     <label for="checkbox">
                                         Horse Racing
                                     </label>
@@ -108,12 +109,7 @@
                             {
                                 <li class="list-group-item">
                                     <div class="checkbox">
-                                        <!--
-                                        TODO: need to uniquely name the check boxes
-                                            (   and be able to set them all on or off from panel heading,
-                                                and be able to post more than one value to server, and lots of other bits...    )
-                                        -->
-                                        <input type="checkbox" class="cb_market" id="cb_market_@Html.DisplayFor(modelItem => market)" />
+                                         <input type="checkbox" class="cb_market" name="filterMarket" id="cb_market" value="@Html.DisplayFor(modelItem => market)"/>
                                         <label for="checkbox">
                                             @Html.DisplayFor(modelItem => market)
                                         </label>
@@ -141,12 +137,7 @@
                             {
                                 <li class="list-group-item">
                                     <div class="checkbox">
-                                        <!--
-                                            TODO: need to uniquely name the check boxes
-                                                (   and be able to set them all on or off from panel heading,
-                                                    and be able to post more than one value to server, and lots of other bits...    )
-                                            -->
-                                        <input type="checkbox" class="cb_bookmaker" id="cb_bookmaker_@Html.DisplayFor(modelItem => bookmaker)" />
+                                        <input type="checkbox" class="cb_bookmaker" name="filterBookmaker" value="@Html.DisplayFor(modelItem => bookmaker)"/>
                                         <label for="checkbox">
                                             @Html.DisplayFor(modelItem => bookmaker)
                                         </label>
@@ -162,7 +153,8 @@
                 <div class="panel panel-default m-t-10 m-b-10">
                     <div class="panel-heading">
                         <div class="checkbox">
-                            <input type="checkbox" class="cb_exchange" id="cb_exchange_all" />
+                            <!-- for the moment we only have one exchange so disable the checkboxes -->
+                            <input type="checkbox" class="cb_exchange" id="cb_exchange_all" checked disabled/>
                             <label for="checkbox">
                                 Exchange
                             </label>
@@ -172,7 +164,8 @@
                         <ul class="list-group">
                             <li class="list-group-item">
                                 <div class="checkbox">
-                                    <input type="checkbox" class="cb_exchange" id="cb_exchange_betfair" />
+                                    <!-- for the moment we only have one exchange so disable the checkboxes -->
+                                    <input type="checkbox" class="cb_exchange" name="filterExchange" value="betfair" checked disabled/>
                                     <label for="checkbox">
                                         Betfair
                                     </label>
@@ -197,7 +190,14 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-12">
-                                <input class="form-control" id="val_min_rating" placeholder="Min." name="tx_min_rating_filter"/>
+                                @if (string.IsNullOrEmpty(ViewBag.filterMinRating))
+                                {
+                                    <input class="form-control" id="val_min_rating" placeholder="Min." name="filterMinRating" value=""/>
+                                }
+                                else
+                                {
+                                    <input class="form-control" id="val_min_rating" placeholder="Min." name="filterMinRating" value="@ViewBag.filterMinRating"/>
+                                }
                             </div>
                         </div>
                         <div class="row">
@@ -212,7 +212,14 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-12">
-                                <input class="form-control" id="val_min_odds" placeholder="Min." name="tx_min_odds_filter"/>
+                                @if (string.IsNullOrEmpty(ViewBag.filterMinOdds))
+                                {
+                                    <input class="form-control" id="val_min_odds" placeholder="Min." name="filterMinOdds" value=""/>
+                                }
+                                else
+                                {
+                                    <input class="form-control" id="val_min_odds" placeholder="Min." name="filterMinOdds" value="@ViewBag.filterMinOdds"/>
+                                }
                             </div>
                         </div>
 
@@ -230,7 +237,15 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-12">
-                                <input class="form-control" id="val_max_rating" placeholder="Max." name="tx_max_rating_filter"/>
+                                @if (string.IsNullOrEmpty(ViewBag.filterMaxRating))
+                                {
+                                    <input class="form-control" id="val_max_rating" placeholder="Max." name="filterMaxRating" value="" />
+                                }
+                                else
+                                {
+                                    <input class="form-control" id="val_max_rating" placeholder="Max." name="filterMaxRating" value="@ViewBag.filterMaxRating"/>
+                                }
+                                
                             </div>
                         </div>
                         <div class="row">
@@ -245,7 +260,15 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-12">
-                                <input class="form-control" id="val_max_odds" placeholder="Max." name="tx_max_odds_filter"/>
+                                @if (string.IsNullOrEmpty(ViewBag.filterMaxOdds))
+                                {
+                                    <input class="form-control" id="val_max_odds" placeholder="Max." name="filterMaxOdds" value="" />
+                                }
+                                else
+                                {
+                                    <input class="form-control" id="val_max_odds" placeholder="Max." name="filterMaxOdds" value="@ViewBag.filterMaxOdds"/>
+                                }
+                                
                             </div>
                         </div>
                     </div>
@@ -264,7 +287,15 @@
                     <div class="col-sm-12 col-md-12">
                         <div class="input-group">
                             <span class="input-group-addon" id="min-avail-addon">£</span>
-                            <input class="form-control" id="val_min_availability" aria-describedby="min-avail-addon" name="tx_min_availability_filter" />
+                            @if (string.IsNullOrEmpty(ViewBag.filterMinAvail))
+                            {
+                                <input class="form-control" id="val_min_availability" aria-describedby="min-avail-addon" name="filterMinAvail" value=""/>
+                            }
+                            else
+                            {
+                                <input class="form-control" id="val_min_availability" aria-describedby="min-avail-addon" name="filterMinAvail" value="@ViewBag.filterMinAvail"/>
+                            }
+                            
                         </div>
                     </div>
                 </div>
@@ -280,7 +311,14 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12 col-md-12">
-                        <input type="text" id="timeframe" name="timeframe" value="now" />
+                        @if (string.IsNullOrEmpty(ViewBag.filterTimeLimit))
+                        {
+                            <input type="text" id="timeframe" name="filterTimeLimit" value="now" />
+                        }
+                        else
+                        {
+                            <input type="text" id="timeframe" name="filterTimeLimit" value="@ViewBag.filterTimeLimit" />
+                        }
                     </div>
                 </div>
             </div> <!-- /col-md-4 -->
@@ -289,20 +327,30 @@
             <div class="col-sm-8 col-md-8">
                 <div class="input-group">
                     <span class="input-group-addon" id="search-addon"><span class="fa fa-search"></span></span>
-                    <input id="search_filter" name="search_filter" aria-describedby="search-addon" class="form-control" placeholder="Search by team name, horse name, league name, output (i.e. 0-0)" />
+                    
+                    @if (string.IsNullOrEmpty(ViewBag.filterSearchText))
+                    {
+                        <input id="search_filter" name="filterSearchText" aria-describedby="search-addon" class="form-control" placeholder="Search by team name, horse name, league name, output (i.e. 0-0)" value="" />
+                    }
+                    else
+                    {
+                        <input id="search_filter" name="filterSearchText" aria-describedby="search-addon" class="form-control" placeholder="Search by team name, horse name, league name, output (i.e. 0-0)" value="@ViewBag.filterSearchText" />
+                    }
                 </div>
             </div>
             <div class="col-sm-4 col-md-4">
-                <button class="btn btn-primary"><span class="fa fa-check"></span> Apply</button>
+                <button type="button" class="btn btn-primary" onclick="ODDS_NS.submitFilterForm(this);"><span class="fa fa-check"></span> Apply</button>
                 <div class="pull-right">
-                    <button class="btn btn-default"><span class="fa fa-minus-circle"></span> Clear Filters</button>
+                    <button type="button" class="btn btn-default"><span class="fa fa-minus-circle"></span> Clear Filters</button>
                 </div>
             </div>
         </div>
     </div> <!-- /#filters_section -->
 
+} <!-- end of form -->
+
 @if (Model.Count > 0)
-{
+                               {
     <div id="table_section">
         <div class="row">
             <div class="col-md-12">
@@ -374,7 +422,7 @@
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
-                        {
+                           {
                             <tr>
                                 <td>
                                     @Html.ValueFor(modelItem => item.eventDate, "{0:dd/MM/yyyy HH:mm}")
